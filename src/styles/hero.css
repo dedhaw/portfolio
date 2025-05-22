@@ -1,0 +1,52 @@
+@keyframes typewriter {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  @keyframes blink {
+    0% {
+      border-color: transparent;
+    }
+    50% {
+      border-color: var(--dark-gray);
+    }
+    100% {
+      border-color: transparent;
+    }
+  }
+  
+  @keyframes cursorFadeOut {
+    from {
+      border-color: var(--dark-gray);
+    }
+    to {
+      border-color: transparent;
+    }
+  }
+
+.typing-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+.typing-animation h1 {
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 4px solid var(--dark-gray);
+    width: 0;
+    margin: 0;
+    animation: typewriter 4s steps(30, end) 1s 1 normal both, blink 0.75s step-end infinite;
+}
+
+.typing-animation h1.done {
+    animation: typewriter 4s steps(30, end) 1s 1 normal both, cursorFadeOut 1s 1.5s forwards;
+    width: auto; 
+}

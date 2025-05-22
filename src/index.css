@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Primary Colors */
+  --primary-blue: #2D50E6;
+  --primary-purple: #7B61FF;
+  --primary-teal: #00C2CB;
+  
+  /* Secondary Colors */
+  --accent-yellow: #FFD966;
+  --light-gray: #F5F7FA;
+  --dark-gray: #2C3E50;
+  --accent-color: #7e878f;
+  
+  /* Background Colors */
+  --white: #FFFFFF;
+  --off-white: #F9FAFC;
+
+  /* macOS app buttons - Normal state */
+  --macos-close: #FF5F57;
+  --macos-minimize: #FEBC2E;
+  --macos-maximize: #28C840;
+
+  /* macOS app buttons - Hover state with darker borders */
+  --macos-close-border: #E04343;
+  --macos-minimize-border: #E0A32A;
+  --macos-maximize-border: #17A12E;
+
+  /* Typography */
+  --heading-font: 'Poppins', 'Montserrat', sans-serif; /* Alternatives to GT Walsheim/Circular */
+  --body-font: 'Inter', sans-serif;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-xxl: 3rem;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 24px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode {  
+  /* Dark Mode Colors */
+  --primary-blue: #4A69FF;
+  --primary-purple: #9B85FF;
+  --primary-teal: #2EDBDC;
+  
+  /* Secondary Colors - Dark Mode */
+  --accent-yellow: #FFEA9E;
+  --light-gray: #2A3441;
+  --dark-gray: #E8EDF2;
+  --accent-color: #A7B4C1;
+  
+  /* Background Colors - Dark Mode */
+  --white: #1A1D24;
+  --off-white: #111318;
+}
