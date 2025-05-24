@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FaMapPin } from "react-icons/fa";
 import { IoLogoLinkedin } from "react-icons/io5";
 import { FaSquareGithub } from "react-icons/fa6";
+import { IoMdDownload } from "react-icons/io";
 
 import { Container } from "../styles/GlobalStyles";
 import useCurrentMode from "../hooks/useCurrentMode";
@@ -65,6 +66,8 @@ export default function AboutTab() {
             <Link href="https://github.com/dedhaw" target="_blank" $transitionColor="#171515"><FaSquareGithub size={"30px"} /></Link>
             </SubContainer>
         </InnerContainer>
+        <br />
+        <button className="btn btn-accent" style={{ width: "300px", margin: "auto"}}>Grab my resume <IoMdDownload /></button>
     </Container>
   )
 }

@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import useCurrentMode from "../hooks/useCurrentMode";
 
 const BackgroundImage = styled.img`
   position: absolute;
@@ -31,9 +32,11 @@ const ErrorText = styled.h1`
 `;
 
 export default function PageNotFound() {
+  const isDarkMode = useCurrentMode();
+
   return (
     <Container>
-        <BackgroundImage src="/404bg.png" />
+        <BackgroundImage src={isDarkMode ? "/DM404bg.png" : "404bg.png"} />
         <ErrorText className='header-centered'>
             Page Not Found
         </ErrorText>

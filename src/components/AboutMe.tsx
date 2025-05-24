@@ -44,6 +44,16 @@ function Paragraph () {
     )
 }
 
+// function WorkStyle () {
+//     return (
+//         <Container>
+//             <ParagraphText>I have worked in both <HighLightText>fast pace startups</HighLightText> and one of the <HighLightText>largest finacial companies</HighLightText>.</ParagraphText>
+//         </Container>
+//     )
+// }
+
+
+
 export default function AboutMe() {
   return (
     <AltSection id="mac-os-boundary">
@@ -67,6 +77,24 @@ export default function AboutMe() {
                     height={500}
                     startingXPosition={620}
                     startingYPosition={2}
+                />
+                <MacOS 
+                    id="additonal-info"
+                    // title="where I've worked"
+                    // content={<WorkStyle />}
+                    backgroundColor="light-gray"
+                    width={550}
+                    height={209}
+                    startingXPosition={1014}
+                    startingYPosition={2}
+                />
+                <MacOS 
+                    id="highlight"
+                    title="highlighting skills"
+                    width={550}
+                    height={273}
+                    startingXPosition={1014}
+                    startingYPosition={225}
                 />
                 <MacOS 
                     id="skills"
