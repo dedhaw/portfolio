@@ -17,6 +17,23 @@ const InnerContainer = styled.div`
     border-radius: 25px;
 `;
 
+const Link = styled.a<{$transitionColor: string}>`
+    padding: 0;
+    margin:0;
+    line-height: 0;
+    color: var(--primary-purple);
+    transition: color 0.3s ease;
+
+    & svg {
+        color: var(--primary-purple);
+        transition: color 0.3s ease;
+    }
+
+    :hover {
+        color: ${props => props.$transitionColor};
+    }
+`;
+
 const SubContainer = styled.div`
     margin: auto;
     display: flex;
@@ -40,12 +57,12 @@ export default function AboutTab() {
         <br />
         <InnerContainer>
             <SubContainer>
-                <FaMapPin color="#7B61FF" size={"30px"} />
+                <FaMapPin color={"var(--primary-purple)"} size={"30px"} />
                 <p>Kirkland, Washington</p>
             </SubContainer>
             <SubContainer>
-            <IoLogoLinkedin color="#7B61FF" size={"30px"} />
-            <FaSquareGithub color="#7B61FF" size={"30px"} />
+            <Link href="https://www.linkedin.com/in/dev-dhawan-60b713217/" target="_blank" $transitionColor="#0072b1"><IoLogoLinkedin size={"30px"} /></Link>
+            <Link href="https://github.com/dedhaw" target="_blank" $transitionColor="#171515"><FaSquareGithub size={"30px"} /></Link>
             </SubContainer>
         </InnerContainer>
     </Container>

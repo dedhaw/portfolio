@@ -24,3 +24,8 @@ export const MacOSContainer = styled.div`
     justify-content: center;
     overflow-x: hidden;
 `;
+
+export const Content = styled.div`
+  height: calc(100% - 38px);
+  margin: var(--spacing-xl);
+`;

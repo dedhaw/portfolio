@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useContext, ReactNode } from 'react';
 import styled from 'styled-components';
 import { WindowContext } from '../utils/WindowContext';
 
-const MacOSWindow = styled.div<{ $isDragging: boolean; $isActive: boolean }>`
+const MacOSWindow = styled.div<{ $isDragging: boolean; $isActive: boolean, $isDisplayed: boolean }>`
   position: relative;
   width: 600px;
   height: 400px;
@@ -14,6 +14,7 @@ const MacOSWindow = styled.div<{ $isDragging: boolean; $isActive: boolean }>`
   z-index: ${props => props.$isActive ? 2 : 1};
   ${props => props.$isDragging ? 'cursor: grabbing; box-shadow: var(--shadow-lg), 0 0 0 2px var(--primary-blue) !important;' : ''}
   box-shadow: var(--shadow-lg);
+  display: ${props => props.$isDisplayed ? "block" : "none"};
 
   &:hover {
     box-shadow: var(--shadow-lg), 0 0 0 1px var(--primary-teal);
@@ -71,7 +72,25 @@ const Content = styled.div<{ $backgroundColor: string }>`
   height: calc(100% - 38px);
   width: 100%;
   background-color: var(--${props => props.$backgroundColor});
-  overflow: auto;
+  overflow: overlay;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  &:hover {
+    scrollbar-width: thin;
+    
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: var(--gray-400);
+      border-radius: 4px;
+    }
+  }
 `;
 
 const ResizeHandle = styled.div<{ $position: string }>`
@@ -139,6 +158,7 @@ export default function MacOS ({
     const [offset, setOffset] = useState({ x: 0, y: 0 });
     const [startSize, setStartSize] = useState({ width, height });
     const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+    const [isDisplayed, setIsDisplayed] = useState(true);
     const windowRef = useRef<HTMLDivElement>(null);
 
     const { activeWindowId, setActiveWindow } = useContext(WindowContext);
@@ -260,6 +280,25 @@ export default function MacOS ({
     const handleResizeEnd = () => {
       setIsResizing(false);
     };
+
+
+    const handleWindowReset = () => {
+      if (windowRef.current && windowRef.current.parentElement) {
+        const parentRect = windowRef.current.parentElement.getBoundingClientRect();
+        
+        const scaleFactor = Math.min(
+          parentRect.width / 1600,
+          parentRect.height / 900
+        );
+        
+        setPosition({ 
+          x: startingXPosition !== null ? Math.round(startingXPosition * scaleFactor) : 0, 
+          y: startingYPosition !== null ? Math.round(startingYPosition * scaleFactor) : 0 
+        });
+        setSize({ width: Math.round(width * scaleFactor), height:  Math.round(height * scaleFactor) })
+
+    }
+    }
     
     useEffect(() => {
       if (isDragging) {
@@ -347,6 +386,7 @@ export default function MacOS ({
           }}
           $isDragging={isDragging}
           $isActive={isActive}
+          $isDisplayed={isDisplayed}
           onClick={handleWindowClick}
           onMouseDown={handleMouseDown}
       >
@@ -385,8 +425,8 @@ export default function MacOS ({
         
         <TitleBar className="titleBar" $isActive={isActive}>
           <ControlsContainer>
-            <ControlButton $color="close" $borderColor="close-border" />
-            <ControlButton $color="minimize" $borderColor="minimize-border" />
+            <ControlButton $color="close" $borderColor="close-border" onClick={() => {setIsDisplayed(false)}}/>
+            <ControlButton $color="minimize" $borderColor="minimize-border" onClick={handleWindowReset} />
             <ControlButton $color="maximize" $borderColor="maximize-border" />
           </ControlsContainer>
           <Title>{title}</Title>

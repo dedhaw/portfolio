@@ -1,5 +1,11 @@
-import { useState, ReactNode } from 'react';
+import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+
+interface CircleOutline {
+  $index: number;
+  $innerSize?:number;
+  $color: string;
+}
 
 interface RotatingCircleProps {
   $clockwise: boolean;
@@ -18,12 +24,15 @@ interface IconProps {
 }
 
 interface SpinningCircleProps {
-  outerIcons?: ReactNode[];
-  innerIcons?: ReactNode[];
+  outerIcons?: any[];
+  innerIcons?: any[];
   size?: number;
   iconSize?: number;
   rotationSpeed?: number;
   hoverPause?: boolean;
+  spaceBetweenCircles?: number;
+  reverse?: boolean;
+  color?: string;
 }
 
 const CircleContainer = styled.div<{$size: number}>`
@@ -32,15 +41,15 @@ const CircleContainer = styled.div<{$size: number}>`
   height: ${props => props.$size}px;
 `;
 
-const CircleOutline = styled.div<{$index: number}>`
+const CircleOutline = styled.div<CircleOutline>`
   position: absolute;
-  width: ${props => props.$index === 0 ? '100%' : '70%'};
-  height: ${props => props.$index === 0 ? '100%' : '70%'};
+  width: ${props => props.$index === 0 ? '100%' : `${(props.$innerSize || 0.7) * 100}%`};
+  height: ${props => props.$index === 0 ? '100%' : `${(props.$innerSize || 0.7) * 100}%`};
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  border: 2px dashed var(--gray-300, #d1d5db);
+  border: 2px dashed var(--gray-300, ${props => props.$color});
   pointer-events: none;
 `;
 
@@ -74,6 +83,8 @@ const Icon = styled.div<IconProps>`
   justify-content: center;
   animation: ${props => props.$clockwise ? counterRotateCW : counterRotateCCW} ${props => props.$duration}s linear infinite;
   animation-play-state: ${props => props.$paused ? 'paused' : 'running'};
+  // border: solid black 2px;
+  z-index: 20px;
 
   & > * {
     transition: transform 0.2s ease;
@@ -90,7 +101,10 @@ export default function SpinningCircle({
   size = 300, 
   iconSize = 40, 
   rotationSpeed = 40,
-  hoverPause = true 
+  hoverPause = true,
+  spaceBetweenCircles = 0.6,
+  reverse = false,
+  color = "#d1d5db"
 }: SpinningCircleProps) {
   const [isPaused, setIsPaused] = useState<boolean>(false);
   
@@ -100,7 +114,7 @@ export default function SpinningCircle({
   const center = size / 2;
   
   const outerRadius = size / 2;
-  const innerRadius = size * 0.35;
+  const innerRadius = size / 2 * spaceBetweenCircles;
   
   const handleMouseEnter = () => {
     if (hoverPause) setIsPaused(true);
@@ -116,11 +130,11 @@ export default function SpinningCircle({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <CircleOutline $index={0} />
-      <CircleOutline $index={1} />
+      <CircleOutline $index={0} $color={color}/>
+      <CircleOutline $index={1} $color={color} $innerSize={spaceBetweenCircles} />
       
       <RotatingCircle 
-        $clockwise={true}
+        $clockwise={!reverse}
         $duration={outerDuration} 
         $paused={isPaused}
       >
@@ -139,7 +153,7 @@ export default function SpinningCircle({
               $y={y}
               $duration={outerDuration}
               $angle={angle}
-              $clockwise={false}
+              $clockwise={reverse}
               $paused={isPaused}
             >
               {icon}
@@ -149,7 +163,7 @@ export default function SpinningCircle({
       </RotatingCircle>
       
       <RotatingCircle 
-        $clockwise={false}
+        $clockwise={reverse}
         $duration={innerDuration}
         $paused={isPaused}
       >
@@ -168,7 +182,7 @@ export default function SpinningCircle({
               $y={y}
               $duration={innerDuration}
               $angle={-angle}
-              $clockwise={true}
+              $clockwise={!reverse}
               $paused={isPaused}
             >
               {icon}
