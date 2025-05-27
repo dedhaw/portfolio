@@ -47,13 +47,13 @@ const skillDescriptions: Record<string, string> = {
 };
 
 export default function Highlight() {
-  const { highlightedSkill } = useHighlight();
+  const { highlighted } = useHighlight();
   
   return (
     <HighlightContainer>
       <SkillDescription>
-        {highlightedSkill && skillDescriptions[highlightedSkill] 
-          ? skillDescriptions[highlightedSkill]
+        {highlighted && skillDescriptions[highlighted] 
+          ? skillDescriptions[highlighted]
           : 'Hover over a skill icon to see its description'
         }
       </SkillDescription>

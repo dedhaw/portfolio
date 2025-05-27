@@ -109,7 +109,7 @@ export default function SpinningCircle({
   color = "#d1d5db"
 }: SpinningCircleProps) {
   const [isPaused, setIsPaused] = useState<boolean>(false);
-  const { setHighlightedSkill } = useHighlight();
+  const { setHighlighted } = useHighlight();
   
   const outerDuration = (rotationSpeed * 720) / 1000;
   const innerDuration = (rotationSpeed * 514.3) / 1000;
@@ -128,11 +128,11 @@ export default function SpinningCircle({
   };
 
   const handleIconMouseEnter = (iconId: string) => {
-    setHighlightedSkill(iconId);
+    setHighlighted(iconId);
   };
 
   const handleIconMouseLeave = () => {
-    setHighlightedSkill(null);
+    setHighlighted(null);
   };
 
   const getIconId = (icon: any): string => {

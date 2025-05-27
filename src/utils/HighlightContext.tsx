@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface HighlightContextType {
-  highlightedSkill: string | null;
-  setHighlightedSkill: (skill: string | null) => void;
+  highlighted: string | null;
+  setHighlighted: (skill: string | null) => void;
 }
 
 const HighlightContext = createContext<HighlightContextType | undefined>(undefined);
@@ -20,10 +20,10 @@ interface HighlightProviderProps {
 }
 
 export const HighlightProvider: React.FC<HighlightProviderProps> = ({ children }) => {
-  const [highlightedSkill, setHighlightedSkill] = useState<string | null>(null);
+  const [highlighted, setHighlighted] = useState<string | null>(null);
 
   return (
-    <HighlightContext.Provider value={{ highlightedSkill, setHighlightedSkill }}>
+    <HighlightContext.Provider value={{ highlighted, setHighlighted }}>
       {children}
     </HighlightContext.Provider>
   );

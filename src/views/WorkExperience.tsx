@@ -4,6 +4,7 @@ import { WindowProvider } from "../utils/WindowContext";
 import MacOS from "../components/MacOS";
 import { HighlightProvider } from "../utils/HighlightContext";
 import { OverlayMacOSContainer } from "../styles/GlobalStyles";
+import JobHandler from "../components/InDepthJobs";
 
 const Section = styled.section`
   height: 100vh
@@ -15,15 +16,15 @@ const Container = styled.div`
 
 export default function WorkExperience() {
   const items: TimelineItem[] = [
-    {
-      id: 'wtg',
-      company: 'Wise Tech Global',
-      logo: "/wtg.jpeg",
-      position: 'Software Developer Intern',
-      startDate: new Date('2020-05'),
-      endDate: new Date('2020-08'),
-      color: "#1e1765"
-    },
+    // {
+    //   id: 'wtg',
+    //   company: 'Wise Tech Global',
+    //   logo: "/wtg.jpeg",
+    //   position: 'Software Developer Intern',
+    //   startDate: new Date('2020-05'),
+    //   endDate: new Date('2020-08'),
+    //   color: "#fff"
+    // },
     {
       id: 'vit', 
       company: 'Virtuelly',
@@ -31,17 +32,15 @@ export default function WorkExperience() {
       position: 'Software Developer Engineer Intern',
       startDate: new Date('2023-12'),
       endDate: new Date('2024-03'),
-      level: 0,
       color: "#ff2677"
     },
     {
       id: 'rsai',
       company: 'RealStar AI',
       logo: "/realstar.jpeg",
-      position: 'Software Developer Engineer Intern',
+      position: 'Software Engineer Intern',
       startDate: new Date('2024-06'),
       endDate: new Date('2024-09'),
-      level: 0,
       color: "#00e9d3"
     },
     {
@@ -51,7 +50,8 @@ export default function WorkExperience() {
       position: 'Lead Developer',
       startDate: new Date('2024-08-15'),
       endDate: new Date('2025-05'),
-      color: "#ff914b"
+      color: "#ff914b",
+      level: 0
     },
     {
       id: 'mufg',
@@ -61,7 +61,6 @@ export default function WorkExperience() {
       startDate: new Date('2025-06'),
       endDate: new Date('2025-09'),
       color: "#d13239",
-      level: 1
     }
   ];
 
@@ -81,8 +80,9 @@ export default function WorkExperience() {
           </div>
               <MacOS 
                   id="jobs"
-                  title="in-depth on my experiences" 
-                  width={550}
+                  title="in-depth on my experiences"
+                  content={<JobHandler />}
+                  width={440}
                   height={310}
                   startingXPosition={5}
                   startingYPosition={500}

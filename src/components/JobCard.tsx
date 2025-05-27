@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { TimelineItem } from './Timeline';
+import { useHighlight } from '../utils/HighlightContext';
 
 interface JobStack {
   item: TimelineItem;
@@ -110,6 +111,12 @@ const Position = styled.div`
 `;
 
 export default function JobCard ({ jobStacks, timelineY, alternating, }: JobCardProps) {
+    const {setHighlighted } = useHighlight();
+    
+    const handleIconMouseEnter = (iconId: string) => {
+        setHighlighted(iconId);
+    };
+
     return (
     <>
       {jobStacks.map(({ item, level, startPos, endPos }, index) => {
@@ -165,6 +172,7 @@ export default function JobCard ({ jobStacks, timelineY, alternating, }: JobCard
             <CardContainer 
               $left={centerPos}
               $top={cardY}
+              onMouseEnter={() => handleIconMouseEnter(item.id)}
             >
               <Card>
                 <LogoContainer>
