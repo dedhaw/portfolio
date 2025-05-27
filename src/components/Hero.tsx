@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import styled, { keyframes } from "styled-components";
+import { scrollToSection } from "../utils/ScrollToSection";
 import '../styles/hero.css';
 
 const HeroContainer = styled.section`
@@ -77,6 +78,7 @@ const HeroSubText = styled.p`
     bottom: 10%;
     margin: 0 auto;
     text-align: center;
+    cursor: pointer;
 `;
 
 
@@ -153,7 +155,7 @@ export default function Hero() {
               </span>
             </SubText>
           </div>
-          <HeroSubText>learn more about me<br /><IoIosArrowDown /></HeroSubText>
+          <HeroSubText onClick={() => {scrollToSection("about")}}>learn more about me<br /><IoIosArrowDown /></HeroSubText>
         </InnerContainer>
     </HeroContainer>
   )

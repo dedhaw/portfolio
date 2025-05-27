@@ -11,7 +11,6 @@ interface NavItem {
   }
   
 interface NavbarProps {
-    logoText?: string;
     navItems: NavItem[];
     className?: string;
   }

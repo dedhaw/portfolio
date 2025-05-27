@@ -7,19 +7,24 @@ import Navbar from './components/Navbar';
 import useDarkMode from './hooks/useDarkMode';
 
 import './App.css';
+import WorkExperience from './views/WorkExperience';
 
 const navItems = [
   { 
-    label: 'Home', 
+    label: 'about', 
     path: '/'
   },
   { 
-    label: 'About', 
-    path: '/about' 
+    label: 'experience', 
+    path: '/work-experience' 
   },
   { 
-    label: 'Contact', 
-    path: '/contact'
+    label: 'projects', 
+    path: '/projects'
+  },
+  { 
+    label: 'education', 
+    path: '/education'
   },
 ];
 
@@ -28,9 +33,10 @@ function App() {
 
   return (
     <BrowserRouter>
-    <Navbar logoText={"/logo.png"} navItems={navItems} />
+    <Navbar navItems={navItems} />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/work-experience' element={<WorkExperience />} />
         <Route path='/*' element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

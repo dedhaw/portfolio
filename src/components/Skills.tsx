@@ -24,45 +24,46 @@ const InnerContainer = styled.div`
 `;
 
 export default function Skills() {
+
   const size = 30;
   
   const outerPLIcons = [
-    <FaPython size={size} />,
-    <BiLogoTypescript size={size} />,
-    <FaJava size={size} />,
-    <PiFileSqlFill size={size} />
+    <FaPython id="py" size={size} />,
+    <BiLogoTypescript id="ts" size={size} />,
+    <FaJava id="java" size={size} />,
+    <PiFileSqlFill id="sql" size={size} />
   ];
   
   const innerPLIcons = [
-    <FaHtml5 size={size} />,
-    <FaCss3Alt size={size} />,
-    <SiOcaml size={25} />
+    <FaHtml5 id="html" size={size} />,
+    <FaCss3Alt id="css" size={size} />,
+    <SiOcaml id="ocaml" size={25} />
   ];
 
   const outerFWTIcons = [
-    <FaReact size={size} />,
-    <FaVuejs size={size} />,
-    <SiFastapi size={size} />,
-    <FaNodeJs size={size} />
+    <FaReact id="react" size={size} />,
+    <FaVuejs id="vue" size={size} />,
+    <SiFastapi id="fapi" size={size} />,
+    <FaNodeJs id="node" size={size} />
   ];
 
   const innerFWTIcons = [
-    <FaBootstrap size={size} />,
-    <BiLogoFlask size={size}/>, 
-    <SiStreamlit size={size} />,
-    <BiLogoPostgresql size={size} />
+    <FaBootstrap id="bs" size={size} />,
+    <BiLogoFlask id="fla" size={size}/>, 
+    <SiStreamlit id="st" size={size} />,
+    <BiLogoPostgresql id="pts" size={size} />
   ];
 
   const outerINFIcons = [
-    <FaDocker size={size} />,
-    <FaAws size={size} />,
-    <SiKubernetes size={size} />
+    <FaDocker id="dock" size={size} />,
+    <FaAws id="aws" size={size} />,
+    <SiKubernetes id="kub" size={size} />
   ];
 
   const innerINFICons = [
-    <TbBrandOpenai size={size} />,
-    <SiDeepgram size={25} />,
-    <RiSupabaseFill size={size} />
+    <TbBrandOpenai id="ai" size={size} />,
+    <SiDeepgram id="deep" size={25} />,
+    <RiSupabaseFill id="supa" size={size} />
   ];
 
   
@@ -72,7 +73,7 @@ export default function Skills() {
         <SpinningCircle
           outerIcons={outerPLIcons}
           innerIcons={innerPLIcons}
-          iconSize={50}
+          iconSize={size}
           color="var(--primary-blue)"
           size={230}
         />
@@ -80,14 +81,14 @@ export default function Skills() {
           outerIcons={outerFWTIcons}
           innerIcons={innerFWTIcons}
           reverse={true}
-          iconSize={50}
+          iconSize={size}
           color="var(--primary-purple)"
           size={230}
         />
         <SpinningCircle 
           outerIcons={outerINFIcons}
           innerIcons={innerINFICons}
-          iconSize={50}
+          iconSize={size}
           color="var(--primary-teal)"
           size={230}
         />

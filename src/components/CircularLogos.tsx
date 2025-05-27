@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { useHighlight } from '../utils/HighlightContext';
 
 interface CircleOutline {
   $index: number;
@@ -83,8 +84,9 @@ const Icon = styled.div<IconProps>`
   justify-content: center;
   animation: ${props => props.$clockwise ? counterRotateCW : counterRotateCCW} ${props => props.$duration}s linear infinite;
   animation-play-state: ${props => props.$paused ? 'paused' : 'running'};
-  // border: solid black 2px;
   z-index: 20px;
+  cursor: pointer;
+  // border: solid black 2px;
 
   & > * {
     transition: transform 0.2s ease;
@@ -107,6 +109,7 @@ export default function SpinningCircle({
   color = "#d1d5db"
 }: SpinningCircleProps) {
   const [isPaused, setIsPaused] = useState<boolean>(false);
+  const { setHighlightedSkill } = useHighlight();
   
   const outerDuration = (rotationSpeed * 720) / 1000;
   const innerDuration = (rotationSpeed * 514.3) / 1000;
@@ -122,6 +125,18 @@ export default function SpinningCircle({
   
   const handleMouseLeave = () => {
     if (hoverPause) setIsPaused(false);
+  };
+
+  const handleIconMouseEnter = (iconId: string) => {
+    setHighlightedSkill(iconId);
+  };
+
+  const handleIconMouseLeave = () => {
+    setHighlightedSkill(null);
+  };
+
+  const getIconId = (icon: any): string => {
+    return icon?.props?.id || '';
   };
   
   return (
@@ -145,6 +160,8 @@ export default function SpinningCircle({
           const x = center + Math.cos(radians) * outerRadius - iconSize / 2;
           const y = center + Math.sin(radians) * outerRadius - iconSize / 2;
           
+          const iconId = getIconId(icon);
+          
           return (
             <Icon
               key={`outer-${index}`}
@@ -155,6 +172,8 @@ export default function SpinningCircle({
               $angle={angle}
               $clockwise={reverse}
               $paused={isPaused}
+              onMouseEnter={() => handleIconMouseEnter(iconId)}
+              onMouseLeave={handleIconMouseLeave}
             >
               {icon}
             </Icon>
@@ -174,6 +193,8 @@ export default function SpinningCircle({
           const x = center + Math.cos(radians) * innerRadius - iconSize / 2;
           const y = center + Math.sin(radians) * innerRadius - iconSize / 2;
           
+          const iconId = getIconId(icon);
+          
           return (
             <Icon
               key={`inner-${index}`}
@@ -184,6 +205,8 @@ export default function SpinningCircle({
               $angle={-angle}
               $clockwise={!reverse}
               $paused={isPaused}
+              onMouseEnter={() => handleIconMouseEnter(iconId)}
+              onMouseLeave={handleIconMouseLeave}
             >
               {icon}
             </Icon>

@@ -25,6 +25,12 @@ export const MacOSContainer = styled.div`
     overflow-x: hidden;
 `;
 
+export const OverlayMacOSContainer = styled.div`
+  height: calc(100vh - var(--spacing-xl));
+  width: 100%;
+  position: relative;
+`;
+
 export const Content = styled.div`
   height: calc(100% - 38px);
   margin: var(--spacing-xl);
