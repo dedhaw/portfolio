@@ -8,6 +8,7 @@ import useDarkMode from './hooks/useDarkMode';
 
 import './App.css';
 import WorkExperience from './views/WorkExperience';
+import Projects from './views/Projects';
 
 const navItems = [
   { 
@@ -22,10 +23,10 @@ const navItems = [
     label: 'projects', 
     path: '/projects'
   },
-  { 
-    label: 'education', 
-    path: '/education'
-  },
+  // { 
+  //   label: 'education', 
+  //   path: '/education'
+  // },
 ];
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/work-experience' element={<WorkExperience />} />
+        <Route path='/projects' element={<Projects />} />
         <Route path='/*' element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
