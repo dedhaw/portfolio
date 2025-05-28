@@ -12,11 +12,7 @@ interface ProjectCardProps {
 
 const CardContainer = styled.div<{ $backgroundImage?: string }>`
     position: relative;
-    background: ${props => 
-        props.$backgroundImage 
-            ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url(${props.$backgroundImage})`
-            : 'var(--white)'
-    };
+    background: ${props => props.$backgroundImage ? `url(${props.$backgroundImage})` : 'var(--white)'};
     background-size: cover;
     background-position: center;
     border: 3px solid var(--primary-purple);
@@ -29,13 +25,27 @@ const CardContainer = styled.div<{ $backgroundImage?: string }>`
     transition: all 0.3s ease;
     overflow: hidden;
 
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: ${props => props.$backgroundImage ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6));` : ""}
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+
+    &:hover::before {
+        opacity: 0.4;
+    }
+
     &:hover {
         transform: translateY(-4px);
         box-shadow: 0 12px 32px rgba(0,0,0,0.2);
     }
 `;
 
-const ContentSection = styled.div<{ $hasBackground?: boolean }>`
+const ContentSection = styled.div`
     position: relative;
     z-index: 2;
     height: 100%;
@@ -50,7 +60,7 @@ const ContentSection = styled.div<{ $hasBackground?: boolean }>`
     }
 `;
 
-const TextContent = styled.div<{ $hasBackground?: boolean }>`
+const TextContent = styled.div`
     margin-top: auto;
     margin-bottom: 20px;
     display: flex;
@@ -179,7 +189,7 @@ export default function ProjectCard({
 
     return (
         <CardContainer $backgroundImage={backgroundImage}>
-            <ContentSection $hasBackground={hasBackground}>
+            <ContentSection>
                 <TextContent>
                     <Title $hasBackground={hasBackground}>{title}</Title>
                     <Description $hasBackground={hasBackground}>

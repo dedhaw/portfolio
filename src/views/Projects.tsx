@@ -64,6 +64,10 @@ const projects = [
         description: "",
         learnMoreLink: "https://github.com/dedhaw/turbo-journey"
     },
+    {
+        title: "DevCode VSCode Extension",
+        description: "",
+    }
 ];
 
 export default function Projects () {
