@@ -16,7 +16,7 @@ const InnerContainer = styled.div`
     flex-direction: row;
     align-items: center;
     gap: 70px;
-    padding: 30px;
+    padding: 60px;
     overflow-y: hidden;
     overflow-x: hidden;
     height: auto;

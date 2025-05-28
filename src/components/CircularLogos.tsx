@@ -40,6 +40,7 @@ const CircleContainer = styled.div<{$size: number}>`
   position: relative;
   width: ${props => props.$size}px;
   height: ${props => props.$size}px;
+  overflow: visible;
 `;
 
 const CircleOutline = styled.div<CircleOutline>`
@@ -70,6 +71,7 @@ const RotatingCircle = styled.div<RotatingCircleProps>`
   height: 100%;
   animation: ${props => props.$clockwise ? counterRotateCW : counterRotateCCW} ${props => props.$duration}s linear infinite;
   animation-play-state: ${props => props.$paused ? 'paused' : 'running'};
+  pointer-events: none;
 `;
 
 const Icon = styled.div<IconProps>`
@@ -86,10 +88,13 @@ const Icon = styled.div<IconProps>`
   animation-play-state: ${props => props.$paused ? 'paused' : 'running'};
   z-index: 20px;
   cursor: pointer;
+  pointer-events: auto;
+
   // border: solid black 2px;
 
   & > * {
     transition: transform 0.2s ease;
+    pointer-events: none;
   }
   
   &:hover > * {
