@@ -71,7 +71,7 @@ const TextContent = styled.div`
 const Title = styled.h3<{ $hasBackground?: boolean }>`
     font-size: 22px;
     font-weight: 700;
-    color: ${props => props.$hasBackground ? 'var(--white)' : 'var(--dark-gray)'};
+    color: ${props => props.$hasBackground ? 'white' : 'var(--dark-gray)'};
     margin: 0 0 12px 0;
     position: relative;
     
@@ -122,7 +122,7 @@ const ActionButton = styled.a<{ $variant: 'demo' | 'learn' }>`
     };
     color: ${props => 
         props.$variant === 'demo' 
-            ? 'var(--dark-gray)' 
+            ? '#2C3E50' 
             : 'var(--accent-yellow)'
     };
     border: 2px solid var(--accent-yellow);
