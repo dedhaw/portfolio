@@ -41,7 +41,7 @@ export default function Navbar(props: NavbarProps) {
   return (
     <Nav className={`navbar ${props.className}`}>
       <div className="container">
-        <Link to={"/"}><NavLogo src={ isDarkMode ? "DMlogo.png" : "logo.png"}/></Link>
+        <Link to={"/"}><NavLogo src={ isDarkMode ? "/DMlogo.png" : "/logo.png"}/></Link>
         <ul className={`navbar-links ${isMenuOpen ? 'navbar-links-active' : ''}`}>
           {props.navItems.map((item, index) => (
             <li key={`nav-item-${index}`}>
