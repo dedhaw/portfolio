@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ProjectCard from '../components/ProjectCard';
+import useCurrentMode from '../hooks/useCurrentMode';
 
 const Container = styled.div`
     min-height: 100vh;
@@ -44,33 +45,9 @@ const ProjectsSection = styled.section`
     width: 100%;
 `;
 
-const projects = [
-    {
-        title: "Rinnie AI",
-        description: "",
-        backgroundImage: "/rinnieai.png",
-        demoLink: "https://rinnie.ai",
-        learnMoreLink: "https://github.com/dedhaw/rinnieAppAmplify"
-    },
-    {
-        title: "E-commerace Platform",
-        description: "",
-        backgroundImage: "/algsnow.png",
-        demoLink: "https://algsnow.com",
-        learnMoreLink: "https://github.com/dedhaw/silver-train"
-    },
-    {
-        title: "AI Voice Chatbot",
-        description: "",
-        learnMoreLink: "https://github.com/dedhaw/turbo-journey"
-    },
-    {
-        title: "DevCode VSCode Extension",
-        description: "",
-    }
-];
-
 export default function Projects () {
+    const isDarkMode = useCurrentMode();
+
     return (
         <Container>
             <Header>
@@ -83,16 +60,34 @@ export default function Projects () {
             
             <ProjectsSection>
                 <ProjectsGrid>
-                    {projects.map((project, index) => (
-                        <ProjectCard
-                            key={index}
-                            title={project.title}
-                            description={project.description}
-                            backgroundImage={project.backgroundImage}
-                            demoLink={project.demoLink}
-                            learnMoreLink={project.learnMoreLink}
-                        />
-                    ))}
+                    <ProjectCard
+                        title="Rinnie AI"
+                        description=""
+                        backgroundImage="/rinnieai.png"
+                        demoLink="https://rinnie.ai"
+                        learnMoreLink="https://github.com/dedhaw/rinnieAppAmplify"
+                    />
+                    <ProjectCard 
+                        title="E-commerace Platform"
+                        description=""
+                        backgroundImage="/algsnow.png"
+                        demoLink="https://algsnow.com"
+                        learnMoreLink="https://github.com/dedhaw/silver-train"
+                    />
+                    <ProjectCard 
+                        title="AI Voice Chatbot"
+                        description=""
+                        backgroundImage={isDarkMode ? "demoDM.png" : "demo.png"}
+                        demoLink="https://dev-dhawan.com/voicechat"
+                        learnMoreLink="https://github.com/dedhaw/turbo-journey"
+                    />
+                    <ProjectCard 
+                        title="DevCode VSCode Extension"
+                        description=""
+                        // backgroundImage=""
+                        // demoLink=""
+                        // learnMoreLink=""
+                    />
                 </ProjectsGrid>
             </ProjectsSection>
         </Container>
