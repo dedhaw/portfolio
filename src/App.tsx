@@ -1,15 +1,17 @@
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { Route, Routes, useLocation } from 'react-router';
 
 import PageNotFound from './views/PNF';
 import Home from './views/Home';
 
 import Navbar from './components/Navbar';
 import useDarkMode from './hooks/useDarkMode';
+import { scrollToTop } from './utils/ScrollToSection';
 
 import './App.css';
 import WorkExperience from './views/WorkExperience';
 import Projects from './views/Projects';
 import VoiceAgent from './components/VoiceAgent';
+import { useEffect } from 'react';
 
 const navItems = [
   { 
@@ -32,10 +34,15 @@ const navItems = [
 
 function App() {
   useDarkMode();
+  const location = useLocation();
+
+  useEffect(() => {
+    scrollToTop();
+  }, [location.pathname]);
 
   return (
-    <BrowserRouter>
-    <Navbar navItems={navItems} />
+    <>
+      <Navbar navItems={navItems} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/work-experience' element={<WorkExperience />} />
@@ -43,7 +50,7 @@ function App() {
         <Route path='/voicechat' element={<VoiceAgent />} />
         <Route path='/*' element={<PageNotFound />} />
       </Routes>
-    </BrowserRouter>
+    </>
   )
 }
 
