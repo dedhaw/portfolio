@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const CircleWrapper = styled.div<{ $isConnected: string; $isLoading: boolean }>`
@@ -208,6 +208,8 @@ export default function AIDisplayButton({
   const analyserRef = useRef<AnalyserNode | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const animationFrameRef = useRef<number>(null);
+  status;
+  transcript;
 
   const handleClick = () => {
     if (isRecording) {

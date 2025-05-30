@@ -104,6 +104,7 @@ export default function InteractiveTimeline ({
   const [hoveredTick, setHoveredTick] = useState<number | null>(null);
   const [mouseX, setMouseX] = useState<number>(0);
   const timelineRef = useRef<HTMLDivElement>(null);
+  mouseX;
 
   const getDateRange = () => {
     if (items.length === 0) return { start: new Date(), end: new Date() };

@@ -34,9 +34,9 @@ export default function Navbar(props: NavbarProps) {
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
-  const toggleMenu = (): void => {
-      setIsMenuOpen(!isMenuOpen);
-  };
+  // const toggleMenu = (): void => {
+  //     setIsMenuOpen(!isMenuOpen);
+  // };
 
   return (
     <Nav className={`navbar ${props.className}`}>
