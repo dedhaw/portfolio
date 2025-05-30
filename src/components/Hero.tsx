@@ -26,6 +26,13 @@ const HeroText = styled.h1`
     font-size: 70px;
     margin-top: -150px !important;
     margin-bottom: 0 !important;
+
+    @media (max-width: 480px) {
+      font-size: 45px;
+    }
+    @media (max-width: 400px) {
+      font-size: 35px;
+    }
 `;
 
 const typing = keyframes`
