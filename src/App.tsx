@@ -9,6 +9,7 @@ import useDarkMode from './hooks/useDarkMode';
 import './App.css';
 import WorkExperience from './views/WorkExperience';
 import Projects from './views/Projects';
+import VoiceAgent from './components/VoiceAgent';
 
 const navItems = [
   { 
@@ -39,6 +40,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/work-experience' element={<WorkExperience />} />
         <Route path='/projects' element={<Projects />} />
+        <Route path='/voicechat' element={<VoiceAgent />} />
         <Route path='/*' element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
