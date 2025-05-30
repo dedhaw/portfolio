@@ -52,7 +52,7 @@ const MobileMenu = styled.div<{$isOpen: boolean}>`
   right: ${props => props.$isOpen ? '0' : '-300px'};
   width: 300px;
   height: 100vh;
-  background: white;
+  background: var(--white);
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
   transition: right 0.3s ease-in-out;
   z-index: 1000;
@@ -81,10 +81,27 @@ const MenuItem = styled.li`
     padding: 15px 0;
     border-bottom: 1px solid #eee;
     transition: color 0.2s ease;
-    
-    &:hover {
-      color: #007bff;
-    }
+  }
+`;
+
+const CloseButton = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+  color: var(--dark-gray);
+  outline: none;
+  
+  &:focus {
+    outline: none;
+  }
+  
+  &:active {
+    outline: none;
   }
 `;
 
@@ -169,6 +186,9 @@ export default function Navbar(props: NavbarProps) {
         <IoMenu size={55} onClick={toggleMenu}/>
         <MobileMenu $isOpen={isMenuOpen} ref={sidebarRef}>
           <MenuItems>
+            <CloseButton>
+              <IoClose size={25} onClick={toggleMenu}/>
+            </CloseButton>
             {props.navItems.map((item, index) => (
               <MenuItem key={`nav-item-${index}`}>
                 <Link 
