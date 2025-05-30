@@ -392,6 +392,7 @@ export default function AudioCaptureWrapper({
         console.log("Stop recording clicked");
         
         stopAudioPlayback();
+        setIsLoading(true);
         
         setIsRecording(false);
         
@@ -418,6 +419,7 @@ export default function AudioCaptureWrapper({
             }, 100);
         }
         
+        setIsLoading(false)
         setStatus("Ready to record");
         console.log("Stop recording completed");
     };

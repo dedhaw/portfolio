@@ -35,7 +35,7 @@ const MainCircle = styled.div<{ $audioLevel: number; $isRecording: boolean; $isC
   
   animation: ${props => {
     if (props.$isRecording) return 'pulse 1.5s ease-in-out infinite';
-    if (props.$isLoading) return 'pulse 0.8s cubic-bezier(0.4, 0, 0.6, 1) infinite';
+    if (props.$isLoading) return 'pulse 0.8s cubic-bezier(0.4, 0, 0.6, 1) infinite !important';
     return 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite';
   }};
   
@@ -43,7 +43,7 @@ const MainCircle = styled.div<{ $audioLevel: number; $isRecording: boolean; $isC
     0%, 100% { opacity: 1; }
     50% { 
       opacity: ${props => {
-        if (props.$isRecording) return Math.max(0.9, 0.95 - (props.$audioLevel * 0.03));
+        if (props.$isRecording) return Math.max(0.9, 0.95 - (props.$audioLevel * 0.01));
         if (props.$isLoading) return 0.6;
         return 0.9;
       }};
