@@ -78,7 +78,7 @@ export default function Projects () {
                         title="AI Voice Chatbot"
                         description=""
                         backgroundImage={isDarkMode ? "/demoDM.png" : "/demo.png"}
-                        demoLink="https://dev-dhawan.com/voicechat"
+                        demoLink={`${window.location.origin}/voicechat`}
                         learnMoreLink="https://github.com/dedhaw/turbo-journey"
                     />
                     {/* <ProjectCard 
