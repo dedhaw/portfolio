@@ -81,13 +81,13 @@ export default function Projects () {
                         demoLink="https://dev-dhawan.com/voicechat"
                         learnMoreLink="https://github.com/dedhaw/turbo-journey"
                     />
-                    <ProjectCard 
+                    {/* <ProjectCard 
                         title="DevCode VSCode Extension"
                         description=""
-                        // backgroundImage=""
-                        // demoLink=""
-                        // learnMoreLink=""
-                    />
+                        backgroundImage=""
+                        demoLink=""
+                        learnMoreLink=""
+                    /> */}
                 </ProjectsGrid>
             </ProjectsSection>
         </Container>
