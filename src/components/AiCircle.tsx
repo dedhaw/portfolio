@@ -66,9 +66,9 @@ const GradientBackground = styled.div<{ $audioLevel: number; $isRecording: boole
     if (props.$isLoading) return '1s linear infinite';
     if (props.$isConnected === "DISCONNECTED") return '8s linear infinite';
     if (props.$isRecording) {
-      // Clamp the speed between 6s (slowest) and 3s (fastest)
-      const speed = Math.max(3, 6 - (props.$audioLevel * 2));
-      return `${speed}s linear infinite`;
+
+    const speed = Math.max(3.5, 4 - (props.$audioLevel * 0.5));
+        return `${speed}s linear infinite`;
     }
     return '4s linear infinite';
   }};
@@ -227,7 +227,7 @@ export default function AIDisplayButton({
       const microphone = audioContext.createMediaStreamSource(stream);
       
       analyser.fftSize = 256;
-      analyser.smoothingTimeConstant = 0.85; // Increased smoothing for less erratic movement
+      analyser.smoothingTimeConstant = 0.85;
       microphone.connect(analyser);
       
       audioContextRef.current = audioContext;
@@ -268,7 +268,6 @@ export default function AIDisplayButton({
       const average = dataArray.reduce((sum, value) => sum + value, 0) / bufferLength;
       const normalizedLevel = Math.min(average / 128, 1);
       
-      // Apply additional smoothing to prevent erratic movements
       setAudioLevel(prevLevel => prevLevel * 0.7 + normalizedLevel * 0.3);
       animationFrameRef.current = requestAnimationFrame(analyze);
     };
