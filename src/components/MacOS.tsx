@@ -412,12 +412,12 @@ export default function MacOS ({
    };
 
    // TODO: Delete Late
-   useEffect(() => {
-       console.log("ID: " + id)
-       console.log("pos: (" + position.x + " x " + position.y + ")")
-       console.log("size: (" + size.width + " x " + size.height + ")")
-       console.log()
-   });
+  //  useEffect(() => {
+  //      console.log("ID: " + id)
+  //      console.log("pos: (" + position.x + " x " + position.y + ")")
+  //      console.log("size: (" + size.width + " x " + size.height + ")")
+  //      console.log()
+  //  });
  
    return (
      <MacOSWindow

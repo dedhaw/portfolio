@@ -9,6 +9,7 @@ import Skills from "./Skills";
 import { AltSection, MacOSContainer } from "../styles/GlobalStyles";
 import MyStack from "./MyStack";
 import Highlight from "./HightlightSkills";
+import { useEffect, useState } from "react";
 
 const Container = styled.div`
     margin: var(--spacing-xl);
@@ -64,68 +65,158 @@ interface AboutMeProps {
 }
 
 export default function AboutMe({id}: AboutMeProps) {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+    const [aspectRatio, setAspectRatio] = useState(1.33);
+
+    const ipadBW = 1024
+    const ipadBH = 1366
+    
+    useEffect(() => {
+        const handleResize = () => {
+          setWindowWidth(window.innerWidth);
+          setWindowHeight(window.innerHeight);
+        };
+    
+        window.addEventListener('resize', handleResize);
+    
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
+
+    useEffect(() => {
+        setAspectRatio(windowWidth / windowHeight);
+        // console.log(aspectRatio);
+    }, [windowWidth, windowHeight]);
+
   return (
     <AltSection id={id}>
         <WindowProvider>
             <HighlightProvider>
                 <MacOSContainer>
-                    <MacOS 
-                        id="about-me"
-                        title="contact"
-                        content={<AboutTab />} 
-                        width={580}
-                        height={500}
-                        startingXPosition={20}
-                        startingYPosition={2}
-                    />
-                    <MacOS 
-                        id="paragraph"
-                        title="about me"
-                        content={<Paragraph />}
-                        backgroundColor="light-gray"
-                        width={380}
-                        height={500}
-                        startingXPosition={620}
-                        startingYPosition={2}
-                    />
-                    <MacOS 
-                        id="additonal-info"
-                        // title="where I've worked"
-                        // content={<WorkStyle />}
-                        backgroundColor="light-gray"
-                        width={550}
-                        height={209}
-                        startingXPosition={1014}
-                        startingYPosition={2}
-                    />
-                    <MacOS 
-                        id="highlight"
-                        title="highlighting skills"
-                        content={<Highlight />}
-                        width={550}
-                        height={273}
-                        startingXPosition={1014}
-                        startingYPosition={225}
-                    />
-                    <MacOS 
-                        id="skills"
-                        title="skills and tools"
-                        content={<Skills />}
-                        width={1160}
-                        height={347}
-                        startingXPosition={405}
-                        startingYPosition={519}
-                    />
-                    <MacOS 
-                        id="stack"
-                        title="my stack"
-                        content={<MyStack />}
-                        backgroundColor="light-gray"
-                        width={370}
-                        height={345}
-                        startingXPosition={20}
-                        startingYPosition={519}
-                    />
+                    {aspectRatio >= 1.33 && (
+                        <>
+                            <MacOS 
+                                id="about-me"
+                                title="contact"
+                                content={<AboutTab />} 
+                                width={580}
+                                height={500}
+                                startingXPosition={20}
+                                startingYPosition={2}
+                            />
+                            <MacOS 
+                                id="paragraph"
+                                title="about me"
+                                content={<Paragraph />}
+                                backgroundColor="light-gray"
+                                width={380}
+                                height={500}
+                                startingXPosition={620}
+                                startingYPosition={2}
+                            />
+                            <MacOS 
+                                id="additonal-info"
+                                // title="where I've worked"
+                                // content={<WorkStyle />}
+                                backgroundColor="light-gray"
+                                width={550}
+                                height={209}
+                                startingXPosition={1014}
+                                startingYPosition={2}
+                            />
+                            <MacOS 
+                                id="highlight"
+                                title="highlighting skills"
+                                content={<Highlight />}
+                                width={550}
+                                height={273}
+                                startingXPosition={1014}
+                                startingYPosition={225}
+                            />
+                            <MacOS 
+                                id="skills"
+                                title="skills and tools"
+                                content={<Skills />}
+                                width={1160}
+                                height={347}
+                                startingXPosition={405}
+                                startingYPosition={519}
+                            />
+                            <MacOS 
+                                id="stack"
+                                title="my stack"
+                                content={<MyStack />}
+                                backgroundColor="light-gray"
+                                width={370}
+                                height={345}
+                                startingXPosition={20}
+                                startingYPosition={519}
+                            />
+                        </>
+                    )}
+                    {aspectRatio < 1.43 && (
+                        <>
+                            <MacOS 
+                                id="about-me"
+                                title="contact"
+                                content={<AboutTab />} 
+                                width={580}
+                                height={500}
+                                startingXPosition={20}
+                                startingYPosition={2}
+                                baseWidth={ipadBW}
+                                baseHeight={ipadBH}
+                            />
+                            {/* <MacOS 
+                                id="paragraph"
+                                title="about me"
+                                content={<Paragraph />}
+                                backgroundColor="light-gray"
+                                width={380}
+                                height={500}
+                                startingXPosition={620}
+                                startingYPosition={2}
+                            />
+                            <MacOS 
+                                id="additonal-info"
+                                // title="where I've worked"
+                                // content={<WorkStyle />}
+                                backgroundColor="light-gray"
+                                width={550}
+                                height={209}
+                                startingXPosition={1014}
+                                startingYPosition={2}
+                            />
+                            <MacOS 
+                                id="highlight"
+                                title="highlighting skills"
+                                content={<Highlight />}
+                                width={550}
+                                height={273}
+                                startingXPosition={1014}
+                                startingYPosition={225}
+                            />
+                            <MacOS 
+                                id="skills"
+                                title="skills and tools"
+                                content={<Skills />}
+                                width={1160}
+                                height={347}
+                                startingXPosition={405}
+                                startingYPosition={519}
+                            />
+                            <MacOS 
+                                id="stack"
+                                title="my stack"
+                                content={<MyStack />}
+                                backgroundColor="light-gray"
+                                width={370}
+                                height={345}
+                                startingXPosition={20}
+                                startingYPosition={519}
+                            /> */}
+                        </>
+                    )}
                 </MacOSContainer>
             </HighlightProvider>
         </WindowProvider>
