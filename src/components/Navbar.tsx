@@ -95,6 +95,7 @@ const CloseButton = styled.div`
   padding: 5px;
   color: var(--dark-gray);
   outline: none;
+  z-index: 20px;
   
   &:focus {
     outline: none;

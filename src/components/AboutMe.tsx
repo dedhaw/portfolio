@@ -15,6 +15,25 @@ const Container = styled.div`
     margin: var(--spacing-xl);
 `;
 
+const PhoneContainer = styled.div`
+    background-color: var(--white);
+`;
+
+const SkillsContainer = styled.div`
+    .circle-container {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+        padding: 30px !important;
+    }
+`;
+
+const HighlightContainer = styled.div`
+    .highlight-container {
+        padding: 5px !important;
+    }
+`;
+
 const ButtonContainer = styled.div`
     gap: 50px;
     display: flex;
@@ -89,6 +108,8 @@ export default function AboutMe({id}: AboutMeProps) {
     }, [windowWidth, windowHeight]);
 
   return (
+    <>
+    {aspectRatio > 0.65 && (
     <AltSection id={id}>
         <WindowProvider>
             <HighlightProvider>
@@ -154,7 +175,7 @@ export default function AboutMe({id}: AboutMeProps) {
                             />
                         </>
                     )}
-                    {aspectRatio < 1.43 && (
+                    {aspectRatio > 0.65 && aspectRatio < 1.43 && (
                         <>
                             <MacOS 
                                 id="about-me"
@@ -176,6 +197,8 @@ export default function AboutMe({id}: AboutMeProps) {
                                 height={430}
                                 startingXPosition={20}
                                 startingYPosition={550}
+                                baseWidth={ipadBW}
+                                baseHeight={ipadBH}
                             />
                             <MacOS 
                                 id="additonal-info"
@@ -186,6 +209,8 @@ export default function AboutMe({id}: AboutMeProps) {
                                 height={300}
                                 startingXPosition={485}
                                 startingYPosition={400}
+                                baseWidth={ipadBW}
+                                baseHeight={ipadBH}
                             />
                             <MacOS 
                                 id="highlight"
@@ -195,6 +220,8 @@ export default function AboutMe({id}: AboutMeProps) {
                                 height={250}
                                 startingXPosition={485}
                                 startingYPosition={725}
+                                baseWidth={ipadBW}
+                                baseHeight={ipadBH}
                             />
                             <MacOS 
                                 id="skills"
@@ -204,6 +231,8 @@ export default function AboutMe({id}: AboutMeProps) {
                                 height={340}
                                 startingXPosition={20}
                                 startingYPosition={1000}
+                                baseWidth={ipadBW}
+                                baseHeight={ipadBH}
                             />
                             <MacOS 
                                 id="stack"
@@ -214,6 +243,8 @@ export default function AboutMe({id}: AboutMeProps) {
                                 height={380}
                                 startingXPosition={485}
                                 startingYPosition={2}
+                                baseWidth={ipadBW}
+                                baseHeight={ipadBH}
                             />
                         </>
                     )}
@@ -221,5 +252,23 @@ export default function AboutMe({id}: AboutMeProps) {
             </HighlightProvider>
         </WindowProvider>
     </AltSection>
+    )}
+    {aspectRatio <= 0.65 && (
+        <PhoneContainer>
+            <HighlightProvider>
+                <AboutTab />
+                <Paragraph />
+                <h3 style={{textAlign: "center"}}>Here's my stack:</h3>
+                <MyStack />
+                <HighlightContainer>
+                    <Highlight />
+                </HighlightContainer>
+                <SkillsContainer>
+                    <Skills />
+                </SkillsContainer>
+            </HighlightProvider>
+        </PhoneContainer>
+    )}
+    </>
   );
 };

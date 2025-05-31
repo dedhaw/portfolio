@@ -50,7 +50,7 @@ export default function Highlight() {
   const { highlighted } = useHighlight();
   
   return (
-    <HighlightContainer>
+    <HighlightContainer className='highlight-container'>
       <SkillDescription>
         {highlighted && skillDescriptions[highlighted] 
           ? skillDescriptions[highlighted]

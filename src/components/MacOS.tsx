@@ -135,13 +135,9 @@ interface MacOSProps {
    height?: number;
    startingXPosition?: number | null;
    startingYPosition?: number | null;
-   baseWidth?: number | null;
-   baseHeight?: number | null;
+   baseWidth?: number;
+   baseHeight?: number;
 }
-
-// base dimensions
-let DESIGN_WIDTH = 1600;
-let DESIGN_HEIGHT = 900;
 
 export default function MacOS ({
    id,
@@ -152,8 +148,8 @@ export default function MacOS ({
    height=400,
    startingXPosition = null,
    startingYPosition = null,
-   baseWidth = null,
-   baseHeight = null,
+   baseWidth = 1600,
+   baseHeight = 900,
 
 }: MacOSProps) {
    const [position, setPosition] = useState({ 
@@ -174,8 +170,9 @@ export default function MacOS ({
    const { activeWindowId, setActiveWindow } = useContext(WindowContext);
    const isActive = activeWindowId === id;
 
-   DESIGN_WIDTH = baseWidth !== null ? baseWidth : DESIGN_WIDTH;
-   DESIGN_HEIGHT = baseHeight !== null ? baseHeight : DESIGN_HEIGHT;
+   // base dimensions
+   const DESIGN_WIDTH = baseWidth;
+   const DESIGN_HEIGHT = baseHeight;
 
    const getScaleFactor = () => {
      if (!windowRef.current?.parentElement) return 1;
