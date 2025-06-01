@@ -43,6 +43,11 @@ const ProjectsGrid = styled.div`
 
 const ProjectsSection = styled.section`
     width: 100%;
+    margin: auto;
+
+    @media (max-width: 768px) {
+        display: flex;
+    }
 `;
 
 export default function Projects () {
