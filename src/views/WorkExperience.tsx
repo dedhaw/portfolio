@@ -128,9 +128,10 @@ export default function WorkExperience() {
                 startingYPosition={500}
               />
             )}
+            <br />
 
             {isMobile && (
-              <JobCardContainer style={{marginTop: -170}}>
+              <JobCardContainer style={{marginTop: -100}}>
                 {Object.entries(jobs).map(([key, jobComponent]) => (
                   <div key={key} id={key} style={{ marginBottom: '20px' }}>
                     {jobComponent}
