@@ -15,7 +15,7 @@ export default function VoiceAgent() {
   return (
     <section>
         <Container>
-            <h1 className='header-centered'>Demo</h1>
+            <h1 className='header-centered'>Voice Agent Demo</h1>
             <AudioCaptureWrapper>
                 {({
                     status,

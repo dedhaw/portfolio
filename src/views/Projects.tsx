@@ -43,6 +43,11 @@ const ProjectsGrid = styled.div`
 
 const ProjectsSection = styled.section`
     width: 100%;
+    margin: auto;
+
+    @media (max-width: 768px) {
+        display: flex;
+    }
 `;
 
 export default function Projects () {
@@ -78,7 +83,7 @@ export default function Projects () {
                         title="AI Voice Chatbot"
                         description=""
                         backgroundImage={isDarkMode ? "/demoDM.png" : "/demo.png"}
-                        demoLink="https://dev-dhawan.com/voicechat"
+                        demoLink={`${window.location.origin}/voicechat`}
                         learnMoreLink="https://github.com/dedhaw/turbo-journey"
                     />
                     {/* <ProjectCard 
