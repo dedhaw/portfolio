@@ -171,22 +171,11 @@ const Position = styled.div`
   border-radius: 8px;
 `;
 
-const DateRange = styled.div`
-  margin-top: 8px;
-  font-size: 12px;
-  color: var(--dark-gray);
-  opacity: 0.7;
-`;
-
 export default function JobCard ({ jobStacks, timelineY, alternating, isMobile, timelineHeight }: JobCardProps) {
   const { setHighlighted } = useHighlight();
   
   const handleIconMouseEnter = (iconId: string) => {
     setHighlighted(iconId);
-  };
-
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
   };
 
   if (isMobile) {

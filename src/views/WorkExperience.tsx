@@ -132,7 +132,7 @@ export default function WorkExperience() {
             {isMobile && (
               <JobCardContainer style={{marginTop: -170}}>
                 {Object.entries(jobs).map(([key, jobComponent]) => (
-                  <div id={key} style={{ marginBottom: '20px' }}>
+                  <div key={key} id={key} style={{ marginBottom: '20px' }}>
                     {jobComponent}
                     <br />
                   </div>
