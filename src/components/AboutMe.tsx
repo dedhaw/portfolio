@@ -254,7 +254,7 @@ export default function AboutMe({id}: AboutMeProps) {
     </AltSection>
     )}
     {aspectRatio <= 0.65 && (
-        <PhoneContainer>
+        <PhoneContainer id={id}>
             <HighlightProvider>
                 <AboutTab />
                 <Paragraph />

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import JobCard from './JobCard';
 
@@ -20,22 +20,49 @@ interface InteractiveTimelineProps {
   alternating?: boolean;
 }
 
-const TimelineContainer = styled.div<{ $height: number }>`
-  height: ${props => props.$height}px;
+const TimelineContainer = styled.div<{ $height: number; $isMobile: boolean }>`
+  height: ${props => props.$isMobile ? 'auto' : `${props.$height}px`};
+  min-height: ${props => props.$isMobile ? '100vh' : 'auto'};
+  width: 100%;
 `;
 
-const TimelineWrapper = styled.div`
+const TimelineWrapper = styled.div<{ $isMobile: boolean }>`
   position: relative;
   width: 100%;
   height: 100%;
+  ${props => props.$isMobile && `
+    display: flex;
+    padding: 40px 20px;
+    gap: 40px;
+  `}
 `;
 
-const MainTimeline = styled.div<{ $top: number }>`
+const TimelineTrack = styled.div<{ $isMobile: boolean }>`
+  ${props => props.$isMobile ? `
+    position: relative;
+    width: 60px;
+    flex-shrink: 0;
+  ` : `
+    position: relative;
+    width: 100%;
+    height: 100%;
+  `}
+`;
+
+const MainTimeline = styled.div<{ $isMobile: boolean; $top?: number }>`
   position: absolute;
-  width: 100%;
-  height: 6px;
-  top: ${props => props.$top}px;
-  background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple), var(--primary-teal));
+  ${props => props.$isMobile ? `
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, var(--primary-blue), var(--primary-purple), var(--primary-teal));
+  ` : `
+    width: 100%;
+    height: 6px;
+    top: ${props.$top}px;
+    background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple), var(--primary-teal));
+  `}
   border-radius: 3px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 
@@ -43,18 +70,28 @@ const MainTimeline = styled.div<{ $top: number }>`
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple), var(--primary-teal));
+    background: inherit;
     border-radius: 3px;
     filter: blur(4px);
     opacity: 0.6;
   }
 `;
 
-const TickContainer = styled.div<{ $left: number; $top: number }>`
+const TickContainer = styled.div<{ 
+  $position: number; 
+  $isMobile: boolean;
+  $top?: number;
+}>`
   position: absolute;
-  left: ${props => props.$left}%;
-  top: ${props => props.$top}px;
-  transform: translateX(-50%);
+  ${props => props.$isMobile ? `
+    top: ${props.$position}%;
+    left: 30px;
+    transform: translateX(-50%);
+  ` : `
+    left: ${props.$position}%;
+    top: ${props.$top || 0}px;
+    transform: translateX(-50%);
+  `}
   transition: all 0.3s ease;
 `;
 
@@ -62,26 +99,40 @@ const TickLine = styled.div<{
   $height: number; 
   $marginTop: number; 
   $isSpecial: boolean; 
-  $isHovered: boolean; 
+  $isHovered: boolean;
+  $isMobile: boolean;
 }>`
-  width: ${props => props.$isSpecial ? '2px' : '1px'};
-  height: ${props => props.$height}px;
+  ${props => props.$isMobile ? `
+    height: ${props.$isSpecial ? '2px' : '1px'};
+    width: ${props.$height}px;
+    margin-left: -${props.$height/2}px;
+  ` : `
+    width: ${props.$isSpecial ? '2px' : '1px'};
+    height: ${props.$height}px;
+    margin-top: ${props.$marginTop}px;
+  `}
   background-color: ${props => props.$isHovered ? 'var(--primary-blue)' : 'var(--dark-gray)'};
   border-radius: 1px;
-  margin-top: ${props => props.$marginTop}px;
   transition: all 0.3s ease;
   transform: ${props => props.$isHovered ? 'scale(1.2)' : 'scale(1)'};
   box-shadow: ${props => props.$isHovered ? '0 2px 8px rgba(0,0,0,0.2)' : 'none'};
 `;
 
 const YearLabel = styled.div<{ 
-  $top: number; 
+  $isMobile: boolean;
   $isHovered: boolean; 
+  $top?: number;
 }>`
   position: absolute;
-  top: ${props => props.$top}px;
-  left: 50%;
-  transform: translateX(-50%);
+  ${props => props.$isMobile ? `
+    left: -45px;
+    top: 50%;
+    transform: translateY(-50%);
+  ` : `
+    top: ${props.$top || -40}px;
+    left: 50%;
+    transform: translateX(-50%);
+  `}
   background-color: var(--white);
   color: ${props => props.$isHovered ? 'var(--primary-blue)' : 'var(--dark-gray)'};
   padding: 4px 12px;
@@ -91,8 +142,21 @@ const YearLabel = styled.div<{
   border: 2px solid ${props => props.$isHovered ? 'var(--primary-blue)' : 'var(--light-gray)'};
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
-  z-index: 10;ß
+  z-index: 10;
   white-space: nowrap;
+`;
+
+const JobsContainer = styled.div<{ $isMobile: boolean }>`
+  ${props => props.$isMobile ? `
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  ` : `
+    position: relative;
+    width: 100%;
+    height: 100%;
+  `}
 `;
 
 export default function InteractiveTimeline ({
@@ -102,9 +166,26 @@ export default function InteractiveTimeline ({
   alternating = false
 }: InteractiveTimelineProps) {
   const [hoveredTick, setHoveredTick] = useState<number | null>(null);
-  const [mouseX, setMouseX] = useState<number>(0);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [aspectRatio, setAspectRatio] = useState(1.33);
   const timelineRef = useRef<HTMLDivElement>(null);
-  mouseX;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      setWindowHeight(window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    setAspectRatio(windowWidth / windowHeight);
+  }, [windowWidth, windowHeight]);
+
+  const isMobile = aspectRatio < 0.75;
 
   const getDateRange = () => {
     if (items.length === 0) return { start: new Date(), end: new Date() };
@@ -208,12 +289,11 @@ export default function InteractiveTimeline ({
   const jobStacks = calculateJobStacks();
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (timelineRef.current) {
+    if (timelineRef.current && !isMobile) {
       const rect = timelineRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
-      setMouseX(x);
-      
       const percentage = (x / rect.width) * 100;
+      
       const closestTick = ticks.reduce((closest, tick, index) => {
         const distance = Math.abs(tick.position - percentage);
         return distance < closest.distance ? { index, distance } : closest;
@@ -233,15 +313,69 @@ export default function InteractiveTimeline ({
     return isHovered ? 30 : 20;
   };
 
+  if (isMobile) {
+    return (
+      <TimelineContainer className={className} $height={height} $isMobile={true}>
+        <TimelineWrapper $isMobile={true}>
+          <TimelineTrack $isMobile={true}>
+            <MainTimeline $isMobile={true} />
+            
+            {ticks.map((tick, index) => {
+              const isHovered = hoveredTick === index;
+              const tickSize = getTickHeight(tick, isHovered);
+              const isSpecial = tick.isEnd || tick.isYearly;
+              
+              return (
+                <TickContainer
+                  key={index}
+                  $position={tick.position}
+                  $isMobile={true}
+                >
+                  <TickLine 
+                    $height={tickSize}
+                    $marginTop={0}
+                    $isMobile={true}
+                    $isSpecial={isSpecial}
+                    $isHovered={isHovered}
+                  />
+                  
+                  {(tick.isYearly || tick.isEnd) && (
+                    <YearLabel 
+                      $isMobile={true}
+                      $isHovered={isHovered}
+                    >
+                      {tick.date.getFullYear()}
+                    </YearLabel>
+                  )}
+                </TickContainer>
+              );
+            })}
+          </TimelineTrack>
+
+          <JobsContainer $isMobile={true}>
+            <JobCard 
+              jobStacks={jobStacks}
+              timelineY={0}
+              alternating={false}
+              isMobile={true}
+              timelineHeight={height}
+            />
+          </JobsContainer>
+        </TimelineWrapper>
+      </TimelineContainer>
+    );
+  }
+
   return (
-    <TimelineContainer className={className} $height={height}>
+    <TimelineContainer className={className} $height={height} $isMobile={false}>
       <TimelineWrapper 
         ref={timelineRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        $isMobile={false}
       >
-        <MainTimeline $top={timelineY} />
-
+        <MainTimeline $isMobile={false} $top={timelineY} />
+        
         {ticks.map((tick, index) => {
           const isHovered = hoveredTick === index;
           const tickHeight = getTickHeight(tick, isHovered);
@@ -252,20 +386,23 @@ export default function InteractiveTimeline ({
           return (
             <TickContainer
               key={index}
-              $left={tick.position}
-              $top={timelineY + (isSpecial ? 0 : 3)}
+              $position={tick.position}
+              $isMobile={false}
+              $top={timelineY}
             >
               <TickLine 
                 $height={tickHeight}
                 $marginTop={marginTop}
+                $isMobile={false}
                 $isSpecial={isSpecial}
                 $isHovered={isHovered}
               />
               
               {(tick.isYearly || tick.isEnd) && (
                 <YearLabel 
-                  $top={-tickHeight/2 - 30}
+                  $isMobile={false}
                   $isHovered={isHovered}
+                  $top={-tickHeight/2 - 30}
                 >
                   {tick.date.getFullYear()}
                 </YearLabel>
@@ -278,6 +415,7 @@ export default function InteractiveTimeline ({
           jobStacks={jobStacks}
           timelineY={timelineY}
           alternating={alternating}
+          isMobile={false}
         />
       </TimelineWrapper>
     </TimelineContainer>
