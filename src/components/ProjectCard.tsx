@@ -25,6 +25,18 @@ const CardContainer = styled.div<{ $backgroundImage?: string }>`
     transition: all 0.3s ease;
     overflow: hidden;
 
+    @media (max-width: 768px) {
+        padding: 20px;
+        min-height: 350px;
+        border-radius: 12px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 16px;
+        min-width: 200px;
+    }
+
+
     &::before {
         content: "";
         position: absolute;
@@ -56,6 +68,10 @@ const ContentSection = styled.div`
     transition: transform 0.3s ease;
 
     ${CardContainer}:hover & {
+        transform: translateY(-60px);
+    }
+
+    @media (max-width: 768px) {
         transform: translateY(-60px);
     }
 `;
@@ -106,6 +122,10 @@ const ButtonContainer = styled.div`
     z-index: 3;
 
     ${CardContainer}:hover & {
+        bottom: 24px;
+    }
+    
+    @media (max-width: 768px) {
         bottom: 24px;
     }
 `;

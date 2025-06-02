@@ -28,6 +28,8 @@ export default function AudioCaptureWrapper({
     const isPlayingRef = useRef<boolean>(false);
     const aiSpeakingRef = useRef<boolean>(false);
     const isRecordingRef = useRef<boolean>(false);
+    const audioContextRef = useRef<AudioContext | null>(null);
+    const audioSourceRef = useRef<AudioBufferSourceNode | null>(null);
 
     useEffect(() => {
         isRecordingRef.current = isRecording;
@@ -39,7 +41,10 @@ export default function AudioCaptureWrapper({
                 audioPlayerRef.current.pause();
                 URL.revokeObjectURL(audioPlayerRef.current.src);
             }
-            stopRecording();
+            // Await stopAudioPlayback on cleanup
+            (async () => {
+                await stopAudioPlayback();
+            })();
         };
     }, []);
 
@@ -179,108 +184,77 @@ export default function AudioCaptureWrapper({
 
     /*** Play Audio on frontend setup ***/
     const playNextAudio = async () => {
-        console.log("playNextAudio called, isRecordingRef:", isRecordingRef.current);
-        console.log("Queue length:", audioQueueRef.current.length);
-        console.log("isPlayingRef:", isPlayingRef.current);
-        
         if (!isRecordingRef.current) {
-            console.log("Recording stopped, canceling audio playback");
             isPlayingRef.current = false;
             return;
         }
-        
+
         if (audioQueueRef.current.length === 0) {
             isPlayingRef.current = false;
-            console.log("Audio queue is empty, finished playing");
-            console.log("Queue empty, isPlayingRef set to false");
             return;
         }
-        
+
         isPlayingRef.current = true;
         const nextAudio = audioQueueRef.current.shift()!;
-        
-        console.log("Playing next audio sentence:", nextAudio.sentence);
-        console.log("Remaining queue length:", audioQueueRef.current.length);
-        
-        const audioUrl = URL.createObjectURL(nextAudio.blob);
-        
+
         try {
-            if (!audioPlayerRef.current) {
-                console.log("Creating new audio element");
-                const audioElement = new Audio();
-                audioElement.preload = 'auto';
-                audioElement.volume = 1.0;
-                
-                audioElement.onended = () => {
-                    console.log("Audio ended, cleaning up and playing next");
-                    URL.revokeObjectURL(audioElement.src);
-                    playNextAudio(); 
-                };
-                
-                audioElement.onerror = (e) => {
-                    console.error("Audio element error:", e);
-                    URL.revokeObjectURL(audioUrl);
-                    isPlayingRef.current = false;
-                    if (audioQueueRef.current.length > 0 && isRecordingRef.current) {
-                        setTimeout(() => playNextAudio(), 100);
-                    }
-                };
-                
-                audioPlayerRef.current = audioElement;
+            if (!audioContextRef.current) {
+                const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+                audioContextRef.current = new AudioCtx();
             }
-            
-            if (!isRecordingRef.current) {
-                console.log("Recording stopped during audio setup, aborting");
-                URL.revokeObjectURL(audioUrl);
-                isPlayingRef.current = false;
-                return;
+
+            if (audioContextRef.current.state === 'suspended') {
+                await audioContextRef.current.resume();
             }
-            
-            audioPlayerRef.current.src = audioUrl;
-            console.log("About to play audio...");
-            await audioPlayerRef.current.play();
-            console.log("Audio playback started successfully");
-            
+
+            const arrayBuffer = await nextAudio.blob.arrayBuffer();
+            const audioBuffer = await audioContextRef.current.decodeAudioData(arrayBuffer);
+
+            // Stop any currently playing source
+            if (audioSourceRef.current) {
+                audioSourceRef.current.stop();
+                audioSourceRef.current.disconnect();
+                audioSourceRef.current = null;
+            }
+
+            const source = audioContextRef.current.createBufferSource();
+            source.buffer = audioBuffer;
+            source.connect(audioContextRef.current.destination);
+
+            source.onended = () => {
+                source.disconnect();
+                audioSourceRef.current = null;
+                playNextAudio();
+            };
+
+            audioSourceRef.current = source;
+            source.start();
+
         } catch (err) {
             console.error("Error playing audio:", err);
-            setStatus(`Error playing audio response: ${err}`);
             isPlayingRef.current = false;
-            URL.revokeObjectURL(audioUrl);
-            
-            if (audioQueueRef.current.length > 0 && isRecordingRef.current) {
-                setTimeout(() => playNextAudio(), 100);
-            }
+            playNextAudio();
         }
     };
-    
-    const stopAudioPlayback = () => {
+
+    const stopAudioPlayback = async () => {
         console.log("Force stopping all audio playback");
-        
-        if (audioPlayerRef.current) {
-            audioPlayerRef.current.pause();
-            audioPlayerRef.current.currentTime = 0;
-            
-            if (audioPlayerRef.current.src) {
-                URL.revokeObjectURL(audioPlayerRef.current.src);
-                audioPlayerRef.current.src = "";
-            }
+
+        if (audioSourceRef.current) {
+            audioSourceRef.current.stop();
+            audioSourceRef.current.disconnect();
+            audioSourceRef.current = null;
         }
-        
-        audioQueueRef.current.forEach(audio => {
-            if (audio.blob) {
-                try {
-                    const blobUrl = URL.createObjectURL(audio.blob);
-                    URL.revokeObjectURL(blobUrl);
-                } catch (e) {
-                    console.log("Error revoking blob URL:", e);
-                }
-            }
-        });
-        
-        audioQueueRef.current = []; 
+
+        if (audioContextRef.current) {
+            await audioContextRef.current.close();
+            audioContextRef.current = null;
+        }
+
+        audioQueueRef.current = [];
         isPlayingRef.current = false;
         aiSpeakingRef.current = false;
-        
+
         console.log("Audio playback force stopped and queue cleared");
     };
     
@@ -311,13 +285,39 @@ export default function AudioCaptureWrapper({
         }
     };
 
+    /*** Unlock AudioContext for Safari and others ***/
+    const unlockAudioContext = async () => {
+        if (!audioContextRef.current) {
+            const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+            audioContextRef.current = new AudioCtx();
+        }
+
+        if (audioContextRef.current.state === 'suspended') {
+            await audioContextRef.current.resume();
+        }
+
+        // Play silent buffer to unlock
+        const buffer = audioContextRef.current.createBuffer(1, 1, 22050);
+        const source = audioContextRef.current.createBufferSource();
+        source.buffer = buffer;
+        source.connect(audioContextRef.current.destination);
+        source.start();
+
+        source.onended = () => {
+            source.disconnect();
+        };
+    };
+
     /*** Make connection and recording methods ***/
     const startRecording = async () => {
         try {
             setIsLoading(true);
-            
-            stopAudioPlayback();
-            
+
+            await stopAudioPlayback();
+
+            // Unlock audio context after user interaction
+            await unlockAudioContext();
+
             setStatus("Connecting to server...");
             const connected = await setupWebSocket();
             if (!connected) {
@@ -325,11 +325,11 @@ export default function AudioCaptureWrapper({
                 setIsLoading(false);
                 return;
             }
-            
+
             socketRef.current!.send(JSON.stringify({
                 action: "start_listening"
             }));
-            
+
             setStatus("Requesting microphone access...");
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ 
@@ -341,45 +341,45 @@ export default function AudioCaptureWrapper({
                     }
                 });
                 streamRef.current = stream;
-                
+
                 const recorder = new MediaRecorder(stream, {
                     mimeType: 'audio/webm',
                 });
-                
+
                 mediaRecorderRef.current = recorder;
-                
+
                 recorder.ondataavailable = async (event: BlobEvent) => {
                     if (socketRef.current && 
                         socketRef.current.readyState === WebSocket.OPEN && 
                         event.data.size > 0) {
-                        
+
                         const arrayBuffer = await event.data.arrayBuffer();
                         socketRef.current.send(arrayBuffer);
                     }
                 };
-                
+
                 recorder.onstart = () => {
                     setStatus("Recording...");
                 };
-                
+
                 recorder.onerror = (event) => {
                     setStatus(`Recording error: ${event.error}`);
                 };
-                
+
                 recorder.start(100);
                 setIsRecording(true);
-                
+
             } catch (error) {
                 setStatus(`Microphone access error: ${error instanceof Error ? error.message : String(error)}`);
                 console.error("Error accessing microphone:", error);
-                
+
                 if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
                     socketRef.current.send(JSON.stringify({
                         action: "stop_listening"
                     }));
                 }
             }
-            
+
         } catch (error) {
             setStatus(`Error: ${error instanceof Error ? error.message : String(error)}`);
             console.error("Error starting recording:", error);
@@ -390,26 +390,26 @@ export default function AudioCaptureWrapper({
 
     const stopRecording = () => {
         console.log("Stop recording clicked");
-        
+
         stopAudioPlayback();
         setIsLoading(true);
-        
+
         setIsRecording(false);
-        
+
         if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
             mediaRecorderRef.current.stop();
         }
-        
+
         if (streamRef.current) {
             streamRef.current.getTracks().forEach(track => track.stop());
             streamRef.current = null;
         }
-        
+
         if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
             socketRef.current.send(JSON.stringify({
                 action: "stop_listening"
             }));
-            
+
             setTimeout(() => {
                 if (socketRef.current) {
                     console.log("Closing WebSocket connection");
@@ -418,7 +418,7 @@ export default function AudioCaptureWrapper({
                 }
             }, 100);
         }
-        
+
         setIsLoading(false)
         setStatus("Ready to record");
         console.log("Stop recording completed");

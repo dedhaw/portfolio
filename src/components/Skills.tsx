@@ -69,7 +69,7 @@ export default function Skills() {
   
   return (
     <Container style={{justifyContent: "center", height: "100%"}}>
-      <InnerContainer>
+      <InnerContainer className="circle-container">
         <SpinningCircle
           outerIcons={outerPLIcons}
           innerIcons={innerPLIcons}

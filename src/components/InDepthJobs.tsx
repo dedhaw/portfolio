@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useHighlight } from '../utils/HighlightContext';
 import styled from 'styled-components';
 
-const JobCardContainer = styled.div`
+export const JobCardContainer = styled.div`
     margin: var(--spacing-xl);
     text-align: center;
     transition: all 1s ease;
@@ -30,7 +30,7 @@ const VirtuellyDes = [
     "This tool was used internally by for HR department to use natural language to sort through CSV files"
 ]
 
-const jobs: Record<string, React.ReactNode> = {
+export const jobs: Record<string, React.ReactNode> = {
   'mufg': < Job companyName="MUFG" jobTitle='AI Engineer Intern' startDate='June 2025' endDate='incoming' location='Sydney, Australia' description={["Incoming as a AI engineer"]} />,
   'rinnie': <Job companyName="Rinnie AI" jobTitle='Founder & Lead Developer' startDate='September 2024' endDate='May 2025' location='Kirkland, Washington' description={RinnieDes} websiteLink='https://rinnie.ai' />,
   'rsai': <Job companyName='Realstar AI' jobTitle='Software Engineer Intern' startDate='June 2024' endDate='September 2024' location='Bellevue, Washington' description={RealStarDes} />,

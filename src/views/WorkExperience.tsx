@@ -5,16 +5,53 @@ import MacOS from "../components/MacOS";
 import { HighlightProvider } from "../utils/HighlightContext";
 import { OverlayMacOSContainer } from "../styles/GlobalStyles";
 import JobHandler from "../components/InDepthJobs";
+import { useState, useEffect } from "react";
+import { jobs, JobCardContainer } from "../components/InDepthJobs";
 
 const Section = styled.section`
-  height: 100vh
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Container = styled.div`
   margin: var(--spacing-xl);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`;
+
+const TimelineContainer = styled.div<{$isMobile: boolean}>`
+  position: relative;
+  margin: auto;
+  width: ${props => props.$isMobile ? "100%" : "auto"};
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 export default function WorkExperience() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [aspectRatio, setAspectRatio] = useState(1.33);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      setWindowHeight(window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    setAspectRatio(windowWidth / windowHeight);
+  }, [windowWidth, windowHeight]);
+
+
+
+  const isMobile = aspectRatio < 0.75;
+
   const items: TimelineItem[] = [
     // {
     //   id: 'wtg',
@@ -69,28 +106,42 @@ export default function WorkExperience() {
       <WindowProvider>
         <HighlightProvider>
           <OverlayMacOSContainer>
-          <div style={{ position: 'relative' }}>
-            <h1 className="header-centered">Work Experience</h1>
+            <TimelineContainer $isMobile={isMobile}>
+              <h1 className="header-centered">Work Experience</h1>
               <Container>
                 <InteractiveTimeline
                   items={items}
                   alternating={true}
                 />
               </Container>
-          </div>
+            </TimelineContainer>
+            
+            {!isMobile && (
               <MacOS 
-                  id="jobs"
-                  title="in-depth on my experiences"
-                  content={<JobHandler />}
-                  width={440}
-                  height={310}
-                  startingXPosition={5}
-                  startingYPosition={500}
+                id="jobs"
+                title="in-depth on my experiences"
+                content={<JobHandler />}
+                width={440}
+                height={310}
+                startingXPosition={5}
+                startingYPosition={500}
               />
+            )}
+            <br />
+
+            {isMobile && (
+              <JobCardContainer style={{marginTop: -100}}>
+                {Object.entries(jobs).map(([key, jobComponent]) => (
+                  <div key={key} id={key} style={{ marginBottom: '20px' }}>
+                    {jobComponent}
+                    <br />
+                  </div>
+                ))}
+              </JobCardContainer>
+            )}
           </OverlayMacOSContainer>
         </HighlightProvider>
       </WindowProvider>
     </Section>
-    
-  )
+  );
 }
