@@ -33,7 +33,7 @@ const CardContainer = styled.div<{ $backgroundImage?: string }>`
 
     @media (max-width: 480px) {
         padding: 16px;
-        min-height: 320px;
+        min-width: 200px;
     }
 
 
