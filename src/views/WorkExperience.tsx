@@ -12,7 +12,6 @@ const Section = styled.section`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
 `;
 
 const Container = styled.div`
