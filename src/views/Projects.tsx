@@ -86,13 +86,12 @@ export default function Projects () {
                         demoLink={`${window.location.origin}/voicechat`}
                         learnMoreLink="https://github.com/dedhaw/turbo-journey"
                     />
-                    {/* <ProjectCard 
+                    <ProjectCard 
                         title="DevCode VSCode Extension"
                         description=""
-                        backgroundImage=""
-                        demoLink=""
-                        learnMoreLink=""
-                    /> */}
+                        backgroundImage="/VSCode.png"
+                        learnMoreLink="https://github.com/dedhaw/sturdy-engine/tree/main/devcode"
+                    />
                 </ProjectsGrid>
             </ProjectsSection>
         </Container>
