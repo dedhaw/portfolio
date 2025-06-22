@@ -14,7 +14,7 @@ const SkillDescription = styled.p`
   margin: 0;
   font-size: 16px;
   line-height: 1.4;
-  color: var(--text-primary, #333);
+  color: var(--text-primary);
 `;
 
 const skillDescriptions: Record<string, string> = {
