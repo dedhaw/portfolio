@@ -1,5 +1,6 @@
 import { useHighlight } from '../utils/HighlightContext';
 import styled from 'styled-components';
+import Skill from './SkillDescription';
 
 const HighlightContainer = styled.div`
   padding: 20px;
@@ -17,9 +18,9 @@ const SkillDescription = styled.p`
   color: var(--text-primary);
 `;
 
-const skillDescriptions: Record<string, string> = {
+const skillDescriptions: Record<string, React.ReactNode> = {
   // Programming Languages
-  'py': 'Python - Versatile programming language for backend development, data science, and AI',
+  'py': <Skill id='py' description='Python - Versatile programming language for backend development, data science, and AI' />,
   'ts': 'TypeScript - Typed superset of JavaScript for robust, scalable development',
   'java': 'Java - Object-oriented programming language for enterprise applications',
   'sql': 'SQL - Structured Query Language for database management and queries',
