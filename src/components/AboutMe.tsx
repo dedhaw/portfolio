@@ -71,14 +71,6 @@ function Paragraph () {
     )
 }
 
-// function WorkStyle () {
-//     return (
-//         <Container>
-//             <ParagraphText>I have worked in both <HighLightText>fast pace startups</HighLightText> and one of the <HighLightText>largest finacial companies</HighLightText>.</ParagraphText>
-//         </Container>
-//     )
-// }
-
 interface AboutMeProps {
     id?: string;
 }
