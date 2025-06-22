@@ -96,7 +96,7 @@ export default function AboutMe({id}: AboutMeProps) {
 
     useEffect(() => {
         setAspectRatio(windowWidth / windowHeight);
-        // console.log(aspectRatio);
+        console.log(aspectRatio);
     }, [windowWidth, windowHeight]);
 
   return (
@@ -106,7 +106,7 @@ export default function AboutMe({id}: AboutMeProps) {
         <WindowProvider>
             <HighlightProvider>
                 <MacOSContainer>
-                    {aspectRatio >= 1.33 && (
+                    {aspectRatio >= 1.3 && (
                         <>
                             <MacOS 
                                 id="about-me"
@@ -167,7 +167,7 @@ export default function AboutMe({id}: AboutMeProps) {
                             />
                         </>
                     )}
-                    {aspectRatio > 0.65 && aspectRatio < 1.43 && (
+                    {aspectRatio < 1.3 && (
                         <>
                             <MacOS 
                                 id="about-me"
