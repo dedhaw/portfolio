@@ -28,22 +28,22 @@ const skillDescriptions: Record<string, React.ReactNode> = {
   'ocaml': <Skill id='ocaml' logo={<SiOcaml size={45} />} description='Functional programming language with strong type system' />,
   
   // Frameworks & Tools
-  'react': 'React - JavaScript library for building interactive user interfaces',
-  'vue': 'Vue.js - Progressive JavaScript framework for building web applications',
-  'fapi': 'FastAPI - Modern Python web framework for building high-performance APIs',
-  'node': 'Node.js - JavaScript runtime for server-side development',
-  'bs': 'Bootstrap - CSS framework for responsive web design',
-  'fla': 'Flask - Lightweight Python web framework for rapid development',
-  'st': 'Streamlit - Python framework for building data science web applications',
-  'pts': 'PostgreSQL - Advanced open-source relational database system',
+  'react': <Skill id='react' logo={<FaReact size={45} />} description='JavaScript library for building interactive user interfaces'/>,
+  'vue': <Skill id='vue' logo={<FaVuejs size={45} />} description='Progressive JavaScript framework for building web applications' />,
+  'fapi': <Skill id='fapi' logo={<SiFastapi size={45} />} description='Modern Python web framework for building high-performance APIs' />,
+  'node': <Skill id='node' logo={<FaNodeJs size={45}/>} description='JavaScript runtime for server-side development'/>,
+  'bs': <Skill id='bs' logo={<FaBootstrap size={45} />} description='CSS framework for responsive web design' />,
+  'fla': <Skill id='fla' logo={<SiFastapi size={45} />} description='Lightweight Python web framework for rapid development' />,
+  'st': <Skill id='st' logo={<SiStreamlit size={45} />} description='Python framework for building data science web applications' />,
+  'pts': <Skill id='pts' logo={<BiLogoPostgresql size={45} />} description='Advanced open-source relational database system' />,
   
   // Infrastructure & Cloud
-  'dock': 'Docker - Containerization platform for application deployment',
-  'aws': 'Amazon Web Services - Cloud computing platform and services',
-  'kub': 'Kubernetes - Container orchestration platform for scalable deployments',
-  'ai': 'OpenAI - AI platform providing language models and machine learning APIs',
-  'deep': 'Deepgram - Voice AI platform for speech recognition and analysis',
-  'supa': 'Supabase - Open-source Firebase alternative with real-time database'
+  'dock': <Skill id='dock' logo={<FaDocker size={45} />} description='Containerization platform for application deployment'/>,
+  'aws': <Skill id='aws' logo={<FaAws size={45} />} description='Cloud computing platform and services' />,
+  'kub': <Skill id='kub' logo={<SiKubernetes size={45} />} description='Container orchestration platform for scalable deployments' />,
+  'ai': <Skill id='ai' logo={<TbBrandOpenai size={45} />} description='AI platform providing language models and machine learning APIs' />,
+  'deep': <Skill id='deep' logo={<SiDeepgram size={45} />} description='Voice AI platform for speech recognition and analysis' />,
+  'supa': <Skill id='supa' logo={<RiSupabaseFill size={45} />} description='Open-source Firebase alternative with real-time database' />
 };
 
 export default function Highlight() {
@@ -53,7 +53,7 @@ export default function Highlight() {
     <HighlightContainer className='highlight-container'>
         {highlighted && skillDescriptions[highlighted] 
           ? skillDescriptions[highlighted]
-          : <Animate trigger={"null"}>
+          : <Animate trigger={"null"} animation='opacity 0.2s ease-in'>
               <h3>Hover over a skill icon to see its description</h3>
             </Animate>
         }

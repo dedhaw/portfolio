@@ -5,6 +5,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
+    gap: 10px;
 `;
 
 interface SkillProps {
