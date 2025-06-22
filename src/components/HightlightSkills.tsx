@@ -21,11 +21,11 @@ const skillDescriptions: Record<string, React.ReactNode> = {
   // Programming Languages
   'py': <Skill id='py' logo={<FaPython size={45} />} description='Versatile programming language for backend development, data science, and AI' />,
   'ts': <Skill id='ts' logo={<BiLogoTypescript size={45} />} description='Typed superset of JavaScript for robust, scalable development' />,
-  'java': 'Java - Object-oriented programming language for enterprise applications',
-  'sql': 'SQL - Structured Query Language for database management and queries',
-  'html': 'HTML - HyperText Markup Language for structuring web content',
-  'css': 'CSS - Cascading Style Sheets for styling and layout of web pages',
-  'ocaml': 'OCaml - Functional programming language with strong type system',
+  'java': <Skill id='java' logo={<FaJava size={45} />} description='Object-oriented programming language for enterprise applications' />,
+  'sql': <Skill id='sql' logo={<PiFileSqlFill size={45} />} description='Structured Query Language for database management and queries' />,
+  'html': <Skill id='html' logo={<FaHtml5 size={45} />} description='HyperText Markup Language for structuring web content' />,
+  'css': <Skill id='css' logo={<FaCss3Alt size={45} />} description='Cascading Style Sheets for styling and layout of web pages' />,
+  'ocaml': <Skill id='ocaml' logo={<SiOcaml size={45} />} description='Functional programming language with strong type system' />,
   
   // Frameworks & Tools
   'react': 'React - JavaScript library for building interactive user interfaces',
