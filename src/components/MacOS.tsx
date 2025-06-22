@@ -38,12 +38,13 @@ const ControlsContainer = styled.div`
  margin-right: 12px;
 `;
 
-const ControlButton = styled.div<{ $color: string; $borderColor: string }>`
+export const ControlButton = styled.div<{ $color: string; $borderColor: string }>`
  width: 13px;
  height: 13px;
  border-radius: 50%;
  background-color: ${props => `var(--macos-${props.$color})`};
  position: relative;
+ flex-shrink: 0;
  
  &:hover::after {
    content: '';

@@ -6,6 +6,7 @@ import { WindowProvider } from "../utils/WindowContext";
 import { HighlightProvider } from "../utils/HighlightContext";
 import AboutTab from "./Contact";
 import Skills from "./Skills";
+import Instructions from "./Instructions";
 import { AltSection, MacOSContainer } from "../styles/GlobalStyles";
 import MyStack from "./MyStack";
 import Highlight from "./HightlightSkills";
@@ -128,9 +129,9 @@ export default function AboutMe({id}: AboutMeProps) {
                                 startingYPosition={2}
                             />
                             <MacOS 
-                                id="additonal-info"
-                                // title="where I've worked"
-                                // content={<WorkStyle />}
+                                id="app-instructions"
+                                title="app instructions"
+                                content={<Instructions />}
                                 backgroundColor="light-gray"
                                 width={550}
                                 height={209}
@@ -193,9 +194,9 @@ export default function AboutMe({id}: AboutMeProps) {
                                 baseHeight={ipadBH}
                             />
                             <MacOS 
-                                id="additonal-info"
-                                // title="where I've worked"
-                                // content={<WorkStyle />}
+                                id="app-instructions"
+                                title="app instructions"
+                                content={<Instructions />}
                                 backgroundColor="light-gray"
                                 width={515}
                                 height={300}
