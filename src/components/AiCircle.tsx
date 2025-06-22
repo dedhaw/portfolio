@@ -5,7 +5,7 @@ const CircleWrapper = styled.div<{ $isConnected: string; $isLoading: boolean }>`
   position: relative;
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: auto;
   cursor: pointer;
   opacity: ${props => {
     if (props.$isConnected === "CONNECTED" && !props.$isLoading) return 1;

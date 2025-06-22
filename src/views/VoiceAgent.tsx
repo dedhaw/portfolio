@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import AIDisplayButton from './AiCircle';
+import AIDisplayButton from '../components/AiCircle';
 import AudioCaptureWrapper from '../utils/AudioCaptureContext';
 
 const Container = styled.div`
@@ -9,6 +9,8 @@ const Container = styled.div`
 const ButtonContainer = styled.div`
     display: flex;
     margin-top: 150px;
+    width: 100%;
+    justify-content: center;
 `;
 
 export default function VoiceAgent() {
@@ -16,7 +18,7 @@ export default function VoiceAgent() {
     <section>
         <Container>
             <h1 className='header-centered'>Voice Agent Demo</h1>
-            <AudioCaptureWrapper>
+            <AudioCaptureWrapper >
                 {({
                     status,
                     isConnected,

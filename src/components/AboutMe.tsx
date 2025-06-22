@@ -6,6 +6,7 @@ import { WindowProvider } from "../utils/WindowContext";
 import { HighlightProvider } from "../utils/HighlightContext";
 import AboutTab from "./Contact";
 import Skills from "./Skills";
+import Instructions from "./Instructions";
 import { AltSection, MacOSContainer } from "../styles/GlobalStyles";
 import MyStack from "./MyStack";
 import Highlight from "./HightlightSkills";
@@ -71,14 +72,6 @@ function Paragraph () {
     )
 }
 
-// function WorkStyle () {
-//     return (
-//         <Container>
-//             <ParagraphText>I have worked in both <HighLightText>fast pace startups</HighLightText> and one of the <HighLightText>largest finacial companies</HighLightText>.</ParagraphText>
-//         </Container>
-//     )
-// }
-
 interface AboutMeProps {
     id?: string;
 }
@@ -104,7 +97,7 @@ export default function AboutMe({id}: AboutMeProps) {
 
     useEffect(() => {
         setAspectRatio(windowWidth / windowHeight);
-        // console.log(aspectRatio);
+        console.log(aspectRatio);
     }, [windowWidth, windowHeight]);
 
   return (
@@ -114,7 +107,7 @@ export default function AboutMe({id}: AboutMeProps) {
         <WindowProvider>
             <HighlightProvider>
                 <MacOSContainer>
-                    {aspectRatio >= 1.33 && (
+                    {aspectRatio >= 1.3 && (
                         <>
                             <MacOS 
                                 id="about-me"
@@ -136,9 +129,9 @@ export default function AboutMe({id}: AboutMeProps) {
                                 startingYPosition={2}
                             />
                             <MacOS 
-                                id="additonal-info"
-                                // title="where I've worked"
-                                // content={<WorkStyle />}
+                                id="app-instructions"
+                                title="app instructions"
+                                content={<Instructions />}
                                 backgroundColor="light-gray"
                                 width={550}
                                 height={209}
@@ -175,7 +168,7 @@ export default function AboutMe({id}: AboutMeProps) {
                             />
                         </>
                     )}
-                    {aspectRatio > 0.65 && aspectRatio < 1.43 && (
+                    {aspectRatio < 1.3 && (
                         <>
                             <MacOS 
                                 id="about-me"
@@ -201,9 +194,9 @@ export default function AboutMe({id}: AboutMeProps) {
                                 baseHeight={ipadBH}
                             />
                             <MacOS 
-                                id="additonal-info"
-                                // title="where I've worked"
-                                // content={<WorkStyle />}
+                                id="app-instructions"
+                                title="app instructions"
+                                content={<Instructions />}
                                 backgroundColor="light-gray"
                                 width={515}
                                 height={300}

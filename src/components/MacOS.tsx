@@ -38,12 +38,13 @@ const ControlsContainer = styled.div`
  margin-right: 12px;
 `;
 
-const ControlButton = styled.div<{ $color: string; $borderColor: string }>`
+export const ControlButton = styled.div<{ $color: string; $borderColor: string }>`
  width: 13px;
  height: 13px;
  border-radius: 50%;
  background-color: ${props => `var(--macos-${props.$color})`};
  position: relative;
+ flex-shrink: 0;
  
  &:hover::after {
    content: '';
@@ -409,12 +410,12 @@ export default function MacOS ({
    };
 
    // TODO: Delete Late
-   useEffect(() => {
-       console.log("ID: " + id)
-       console.log("pos: (" + position.x + " x " + position.y + ")")
-       console.log("size: (" + size.width + " x " + size.height + ")")
-       console.log()
-   });
+  //  useEffect(() => {
+  //      console.log("ID: " + id)
+  //      console.log("pos: (" + position.x + " x " + position.y + ")")
+  //      console.log("size: (" + size.width + " x " + size.height + ")")
+  //      console.log()
+  //  });
  
    return (
      <MacOSWindow
