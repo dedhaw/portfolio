@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import AIDisplayButton from './AiCircle';
+import AIDisplayButton from '../components/AiCircle';
 import AudioCaptureWrapper from '../utils/AudioCaptureContext';
 
 const Container = styled.div`

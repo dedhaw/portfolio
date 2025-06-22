@@ -10,7 +10,7 @@ import { scrollToTop } from './utils/ScrollToSection';
 import './App.css';
 import WorkExperience from './views/WorkExperience';
 import Projects from './views/Projects';
-import VoiceAgent from './components/VoiceAgent';
+import VoiceAgent from './views/VoiceAgent';
 import { useEffect } from 'react';
 
 const navItems = [

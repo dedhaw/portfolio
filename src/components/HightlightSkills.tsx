@@ -10,7 +10,7 @@ import { RiSupabaseFill } from "react-icons/ri";
 
 const HighlightContainer = styled.div`
   padding: 20px;
-  min-height: 80px;
+  min-height: 130px;
   display: flex;
   align-items: center;
   justify-content: center;
