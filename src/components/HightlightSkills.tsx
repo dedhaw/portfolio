@@ -33,7 +33,7 @@ const skillDescriptions: Record<string, React.ReactNode> = {
   'fapi': <Skill id='fapi' logo={<SiFastapi size={45} />} description='Modern Python web framework for building high-performance APIs' />,
   'node': <Skill id='node' logo={<FaNodeJs size={45}/>} description='JavaScript runtime for server-side development'/>,
   'bs': <Skill id='bs' logo={<FaBootstrap size={45} />} description='CSS framework for responsive web design' />,
-  'fla': <Skill id='fla' logo={<SiFastapi size={45} />} description='Lightweight Python web framework for rapid development' />,
+  'fla': <Skill id='fla' logo={<BiLogoFlask size={45} />} description='Lightweight Python web framework for rapid development' />,
   'st': <Skill id='st' logo={<SiStreamlit size={45} />} description='Python framework for building data science web applications' />,
   'pts': <Skill id='pts' logo={<BiLogoPostgresql size={45} />} description='Advanced open-source relational database system' />,
   
