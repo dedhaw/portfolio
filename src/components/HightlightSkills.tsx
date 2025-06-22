@@ -1,4 +1,4 @@
-import { useHighlight } from '../utils/HighlightContext';
+import { useHighlight, Animate } from '../utils/HighlightContext';
 import styled from 'styled-components';
 import Skill from './SkillDescription';
 import { FaPython, FaJava, FaHtml5, FaCss3Alt, FaReact, FaVuejs, FaBootstrap, FaNodeJs, FaDocker, FaAws } from "react-icons/fa";
@@ -7,7 +7,6 @@ import { SiFastapi, SiStreamlit, SiOcaml, SiKubernetes, SiDeepgram } from "react
 import { PiFileSqlFill } from "react-icons/pi";
 import { TbBrandOpenai } from "react-icons/tb";
 import { RiSupabaseFill } from "react-icons/ri";
-import Animate from '../utils/HighlightFadeIn';
 
 const HighlightContainer = styled.div`
   padding: 20px;
@@ -20,8 +19,8 @@ const HighlightContainer = styled.div`
 
 const skillDescriptions: Record<string, React.ReactNode> = {
   // Programming Languages
-  'py': <Skill id='py' logo={<FaPython size={30} />} description='Versatile programming language for backend development, data science, and AI' />,
-  'ts': 'TypeScript - Typed superset of JavaScript for robust, scalable development',
+  'py': <Skill id='py' logo={<FaPython size={45} />} description='Versatile programming language for backend development, data science, and AI' />,
+  'ts': <Skill id='ts' logo={<BiLogoTypescript size={45} />} description='Typed superset of JavaScript for robust, scalable development' />,
   'java': 'Java - Object-oriented programming language for enterprise applications',
   'sql': 'SQL - Structured Query Language for database management and queries',
   'html': 'HTML - HyperText Markup Language for structuring web content',
@@ -54,7 +53,9 @@ export default function Highlight() {
     <HighlightContainer className='highlight-container'>
         {highlighted && skillDescriptions[highlighted] 
           ? skillDescriptions[highlighted]
-          : <Animate trigger={"null"}><h3>Hover over a skill icon to see its description</h3></Animate>
+          : <Animate trigger={"null"}>
+              <h3>Hover over a skill icon to see its description</h3>
+            </Animate>
         }
     </HighlightContainer>
   );
