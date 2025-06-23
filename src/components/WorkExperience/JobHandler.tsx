@@ -1,7 +1,7 @@
 import Job from './JobDescription';
 
-import { useEffect } from 'react';
-import { useHighlight } from '../utils/HighlightContext';
+import React, { useEffect } from 'react';
+import { useHighlight } from '../../utils/HighlightContext';
 import styled from 'styled-components';
 
 export const JobCardContainer = styled.div`
@@ -31,10 +31,10 @@ const VirtuellyDes = [
 ]
 
 export const jobs: Record<string, React.ReactNode> = {
-  'mufg': < Job companyName="MUFG" jobTitle='AI Engineer Intern' startDate='June 2025' endDate='incoming' location='Sydney, Australia' description={["Incoming as a AI engineer"]} />,
-  'rinnie': <Job companyName="Rinnie AI" jobTitle='Founder & Lead Developer' startDate='September 2024' endDate='May 2025' location='Kirkland, Washington' description={RinnieDes} websiteLink='https://rinnie.ai' />,
-  'rsai': <Job companyName='Realstar AI' jobTitle='Software Engineer Intern' startDate='June 2024' endDate='September 2024' location='Bellevue, Washington' description={RealStarDes} />,
-  'vit': <Job companyName='Virtuelly' jobTitle='Software Developer Engineer Intern' startDate='January 2024' endDate='May 2024' location='Bellevue, Washington' description={VirtuellyDes} />
+  'mufg': <Job id='mufg' companyName="MUFG" jobTitle='AI Engineer Intern' startDate='June 2025' endDate='incoming' location='Sydney, Australia' description={["Incoming as a AI engineer"]} />,
+  'rinnie': <Job id='rinnie' companyName="Rinnie AI" jobTitle='Founder & Lead Developer' startDate='September 2024' endDate='May 2025' location='Kirkland, Washington' description={RinnieDes} websiteLink='https://rinnie.ai' />,
+  'rsai': <Job id='rsai' companyName='Realstar AI' jobTitle='Software Engineer Intern' startDate='June 2024' endDate='September 2024' location='Bellevue, Washington' description={RealStarDes} />,
+  'vit': <Job id='vit' companyName='Virtuelly' jobTitle='Software Developer Engineer Intern' startDate='January 2024' endDate='May 2024' location='Bellevue, Washington' description={VirtuellyDes} />
 };
 
 export default function JobHandler() {
@@ -57,10 +57,11 @@ export default function JobHandler() {
     return (
         <>
         <JobCardContainer>
-            {highlighted && jobs[highlighted] 
-                ? jobs[highlighted]
-                : <h3>Hover over one of my past experiences to learn more!</h3>
-            }
+            {highlighted ? (
+                React.cloneElement(jobs[highlighted] as React.ReactElement, {
+                    key: highlighted
+                })
+            ) : (<h3>Hover to learn more!</h3>)}
         </JobCardContainer>
         </>
     )

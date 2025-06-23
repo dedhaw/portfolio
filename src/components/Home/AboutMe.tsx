@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 
-import MacOS from "./MacOS";
-import { WindowProvider } from "../utils/WindowContext";
-import { HighlightProvider } from "../utils/HighlightContext";
+import MacOS from "../MacOS";
+import { WindowProvider } from "../../utils/WindowContext";
+import { HighlightProvider } from "../../utils/HighlightContext";
 import AboutTab from "./Contact";
 import Skills from "./Skills";
 import Instructions from "./Instructions";
-import { AltSection, MacOSContainer } from "../styles/GlobalStyles";
+import { AltSection, MacOSContainer } from "../../styles/GlobalStyles";
 import MyStack from "./MyStack";
 import Highlight from "./HightlightSkills";
 import { useEffect, useState } from "react";

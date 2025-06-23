@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { TimelineItem } from './Timeline';
-import { useHighlight } from '../utils/HighlightContext';
-import { scrollToSection } from "../utils/ScrollToSection";
+import { useHighlight } from '../../utils/HighlightContext'; 
+import { scrollToSection } from "../../utils/ScrollToSection";
 
 interface JobStack {
   item: TimelineItem;

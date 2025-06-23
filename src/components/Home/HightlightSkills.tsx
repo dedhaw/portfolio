@@ -1,4 +1,4 @@
-import { useHighlight, Animate } from '../utils/HighlightContext';
+import { useHighlight, Animate } from '../../utils/HighlightContext';
 import styled from 'styled-components';
 import Skill from './SkillDescription';
 import { FaPython, FaJava, FaHtml5, FaCss3Alt, FaReact, FaVuejs, FaBootstrap, FaNodeJs, FaDocker, FaAws } from "react-icons/fa";
