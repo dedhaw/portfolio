@@ -1,5 +1,5 @@
-import { Container } from "../styles/GlobalStyles";
-import { ControlButton } from "./MacOS";
+import { Container } from "../../styles/GlobalStyles";
+import { ControlButton } from "../MacOS";
 
 export default function Instructions() {
   return (

@@ -1,7 +1,7 @@
 import Job from './JobDescription';
 
 import React, { useEffect } from 'react';
-import { useHighlight } from '../utils/HighlightContext';
+import { useHighlight } from '../../utils/HighlightContext';
 import styled from 'styled-components';
 
 export const JobCardContainer = styled.div`

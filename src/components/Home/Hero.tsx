@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import styled, { keyframes } from "styled-components";
-import { scrollToSection } from "../utils/ScrollToSection";
-import '../styles/hero.css';
+import { scrollToSection } from "../../utils/ScrollToSection";
+import '../../styles/hero.css';
 
 const HeroContainer = styled.section`
     display: flex;

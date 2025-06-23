@@ -1,4 +1,4 @@
-import { Animate } from "../utils/HighlightContext";
+import { Animate } from "../../utils/HighlightContext";
 import styled from "styled-components";
 
 const Container = styled.div`

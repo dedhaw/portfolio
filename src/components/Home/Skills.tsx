@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Container } from "../styles/GlobalStyles";
+import { Container } from "../../styles/GlobalStyles";
 import { FaPython, FaJava, FaHtml5, FaCss3Alt, FaReact, FaVuejs, FaBootstrap, FaNodeJs, FaDocker, FaAws } from "react-icons/fa";
 import { BiLogoTypescript, BiLogoFlask, BiLogoPostgresql } from "react-icons/bi";
 import { SiFastapi, SiStreamlit, SiOcaml, SiKubernetes, SiDeepgram } from "react-icons/si";
@@ -7,7 +7,7 @@ import { PiFileSqlFill } from "react-icons/pi";
 import { TbBrandOpenai } from "react-icons/tb";
 import { RiSupabaseFill } from "react-icons/ri";
 
-import SpinningCircle from "./CircularLogos";
+import SpinningCircle from "../CircularLogos";
 
 
 const InnerContainer = styled.div`

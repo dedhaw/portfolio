@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { TbArrowNarrowRight } from "react-icons/tb";
-import { Animate } from '../utils/HighlightContext';
+import { Animate } from '../../utils/HighlightContext';
 
 interface JobProps {
     id: string;
