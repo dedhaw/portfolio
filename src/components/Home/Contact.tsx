@@ -4,8 +4,8 @@ import { IoLogoLinkedin } from "react-icons/io5";
 import { FaSquareGithub } from "react-icons/fa6";
 import { IoMdDownload } from "react-icons/io";
 
-import { Container } from "../styles/GlobalStyles";
-import useCurrentMode from "../hooks/useCurrentMode";
+import { Container } from "../../styles/GlobalStyles";
+import useCurrentMode from "../../hooks/useCurrentMode";
 
 const InnerContainer = styled.div`
     margin: auto;

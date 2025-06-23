@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { TbArrowNarrowRight } from "react-icons/tb";
+import { Animate } from '../../utils/HighlightContext';
 
 interface JobProps {
+    id: string;
     companyName: string;
     jobTitle: string;
     startDate: string;
@@ -87,7 +89,7 @@ const DateRange = styled.div<{ $isIncoming?: boolean }>`
 
 const IncomingBadge = styled.span`
     background: var(--accent-yellow);
-    color: var(--dark-gray);
+    color: #2C3E50;
     padding: 4px 12px;
     border-radius: 20px;
     font-size: 12px;
@@ -199,6 +201,7 @@ const LearnMoreButton = styled.a`
 `;
 
 export default function Job({
+    id,
     companyName,
     jobTitle,
     startDate,
@@ -208,7 +211,7 @@ export default function Job({
     websiteLink
 }: JobProps) {
     return (
-        <>
+        <Animate trigger={id}>
             <Header>
                 <TitleSection>
                     <CompanyName>{companyName}</CompanyName>
@@ -241,6 +244,6 @@ export default function Job({
                     <TbArrowNarrowRight size={16} />
                 </LearnMoreButton>
             )}
-        </>
+        </Animate>
     );
 }
