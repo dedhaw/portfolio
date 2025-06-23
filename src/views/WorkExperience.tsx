@@ -4,9 +4,9 @@ import { WindowProvider } from "../utils/WindowContext";
 import MacOS from "../components/MacOS";
 import { HighlightProvider } from "../utils/HighlightContext";
 import { OverlayMacOSContainer } from "../styles/GlobalStyles";
-import JobHandler from "../components/InDepthJobs";
+import JobHandler from "../components/JobHandler";
 import { useState, useEffect } from "react";
-import { jobs, JobCardContainer } from "../components/InDepthJobs";
+import { jobs, JobCardContainer } from "../components/JobHandler";
 
 const Section = styled.section`
   min-height: 100vh;
