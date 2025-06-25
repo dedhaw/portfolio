@@ -22,6 +22,10 @@ const Container = styled.div`
     color: var(--accent-color);
     text-decoration: none;
   }
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 `;
 
 const Section = styled.div`
@@ -70,6 +74,15 @@ export default function Footer({ navItems }: FooterProps) {
             </Section>
             <Section>
                 <Header>contact me</Header>
+                <p>
+                    <a href="https://www.linkedin.com/in/dev-dhawan-60b713217/" target="_blank">linkedin</a>
+                </p>
+                <p>
+                    <a href="https://github.com/dedhaw" target="_blank">github</a>
+                </p>
+                <p>
+                    <a href="mailto:ddhawav@gmail.com">email me</a>
+                </p>
             </Section>
         </Container>
         <Border />
