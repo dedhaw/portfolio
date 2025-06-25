@@ -1,21 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { NavItem } from '../App';
 import styled from 'styled-components';
 
 import useCurrentMode from '../hooks/useCurrentMode';
 
 import { IoMenu, IoClose } from "react-icons/io5";
-
-interface NavItem {
-    label: string;
-    path: string;
-  }
   
 interface NavbarProps {
-    navItems: NavItem[];
-    className?: string;
-  }
+  navItems: NavItem[];
+  className?: string;
+}
 
 const Nav = styled.nav`
   border-bottom: 2px solid var(--light-gray);
@@ -106,7 +102,7 @@ const CloseButton = styled.div`
   }
 `;
 
-export default function Navbar(props: NavbarProps) {
+export default function Navbar( { navItems, className }: NavbarProps) {
   const location = useLocation();
   const isDarkMode = useCurrentMode();
 
@@ -163,12 +159,14 @@ export default function Navbar(props: NavbarProps) {
   }, [isMenuOpen]);
 
   return (
-    <Nav className={`navbar ${props.className}`}>
+    <Nav className={`navbar ${className}`}>
       <div className="container">
-          <Link to={"/"}><NavLogo src={ isDarkMode ? "/DMlogo.png" : "/logo.png"}/></Link>
+          <Link to={"/"}>
+            <NavLogo src={ isDarkMode ? "/DMlogo.png" : "/logo.png"}/>
+          </Link>
       {mobile === false && (
           <ul className={`navbar-links ${isMenuOpen ? 'navbar-links-active' : ''}`}>
-            {props.navItems.map((item, index) => (
+            {navItems.map((item, index) => (
               <li key={`nav-item-${index}`}>
                 <Link 
                   to={item.path} 
@@ -190,7 +188,7 @@ export default function Navbar(props: NavbarProps) {
             <CloseButton>
               <IoClose size={25} onClick={toggleMenu}/>
             </CloseButton>
-            {props.navItems.map((item, index) => (
+            {navItems.map((item, index) => (
               <MenuItem key={`nav-item-${index}`}>
                 <Link 
                   to={item.path} 

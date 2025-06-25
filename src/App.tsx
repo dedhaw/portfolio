@@ -4,6 +4,7 @@ import PageNotFound from './views/PNF';
 import Home from './views/Home';
 
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import useDarkMode from './hooks/useDarkMode';
 import { scrollToTop } from './utils/ScrollToSection';
 
@@ -12,6 +13,11 @@ import WorkExperience from './views/WorkExperience';
 import Projects from './views/Projects';
 import VoiceAgent from './views/VoiceAgent';
 import { useEffect } from 'react';
+
+export interface NavItem {
+  label: string;
+  path: string;
+}
 
 const navItems = [
   { 
@@ -50,6 +56,7 @@ function App() {
         <Route path='/voicechat' element={<VoiceAgent />} />
         <Route path='/*' element={<PageNotFound />} />
       </Routes>
+      <Footer navItems={navItems} />
     </>
   )
 }
