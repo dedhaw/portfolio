@@ -12,6 +12,10 @@ const Section = styled.section`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  
+  @media (max-width: 480px) {
+    min-height: 130vh;
+  }
 `;
 
 const Container = styled.div`
@@ -128,20 +132,22 @@ export default function WorkExperience() {
               />
             )}
             <br />
-
-            {isMobile && (
-              <JobCardContainer style={{marginTop: -100}}>
-                {Object.entries(jobs).map(([key, jobComponent]) => (
-                  <div key={key} id={key} style={{ marginBottom: '20px' }}>
-                    {jobComponent}
-                    <br />
-                  </div>
-                ))}
-              </JobCardContainer>
-            )}
           </OverlayMacOSContainer>
         </HighlightProvider>
       </WindowProvider>
+
+      {isMobile && (
+              <div>
+                <JobCardContainer>
+                  {Object.entries(jobs).map(([key, jobComponent]) => (
+                    <div key={key} id={key} style={{ marginBottom: '20px' }}>
+                      {jobComponent}
+                      <br />
+                    </div>
+                  ))}
+                </JobCardContainer>
+              </div>
+            )}
     </Section>
   );
 }

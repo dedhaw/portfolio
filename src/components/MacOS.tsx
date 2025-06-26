@@ -11,7 +11,7 @@ const MacOSWindow = styled.div<{ $isDragging: boolean; $isActive: boolean, $isDi
  overflow: hidden;
  margin: 0 auto;
  transition: ${props => props.$isAnimating ? 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'box-shadow 0.2s ease'};
- z-index: ${props => props.$isActive ? 2 : 1};
+ z-index: ${props => props.$isActive ? 3 : 2};
  ${props => props.$isDragging ? 'cursor: grabbing; box-shadow: var(--shadow-lg), 0 0 0 2px var(--primary-blue) !important;' : ''}
  box-shadow: var(--shadow-lg);
  display: ${props => props.$isDisplayed ? "block" : "none"};
