@@ -8,6 +8,10 @@ export const JobCardContainer = styled.div`
     margin: var(--spacing-xl);
     text-align: center;
     transition: all 1s ease;
+
+    @media (max-width: 375px) {
+        padding-top: 150px !important;
+    }
 `;
 
 const RinnieDes = [
