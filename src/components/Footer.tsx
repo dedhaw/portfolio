@@ -9,13 +9,14 @@ const FooterArea = styled.footer`
   font-size: 14px;
   color: var(--accent-color);
   text-align: center;
+  padding-bottom: 5px;
 `;
 
 const Container = styled.div`
   display: flex;  
   justify-content: space-between;
   width: 70%;
-  margin: 10px auto 0 auto;
+  margin: 0px auto;
   padding: 16px 0;
 
   a {
