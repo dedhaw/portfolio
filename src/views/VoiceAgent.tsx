@@ -4,6 +4,7 @@ import AudioCaptureWrapper from '../utils/AudioCaptureContext';
 
 const Container = styled.div`
     margin: var(--spacing-xl);
+    height: 80vh;
 `;
 
 const ButtonContainer = styled.div`
