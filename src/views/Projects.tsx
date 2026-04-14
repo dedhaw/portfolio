@@ -92,6 +92,13 @@ export default function Projects () {
                         backgroundImage="/VSCode.png"
                         learnMoreLink="https://github.com/dedhaw/sturdy-engine/tree/main/devcode"
                     />
+                    <ProjectCard 
+                        title="Navable"
+                        description="A comprehensive accessibility-focused navigation application for the University of Washington, designed to provide inclusive routing and campus guidance for students and visitors of all mobility levels."
+                        backgroundImage="/navable.png"
+                        backgroundSize="70%"
+                        backgroundColor="#843ce1"
+                    />
                 </ProjectsGrid>
             </ProjectsSection>
         </Container>

@@ -6,14 +6,20 @@ interface ProjectCardProps {
     title: string;
     description: string;
     backgroundImage?: string;
+    backgroundSize?: string;
+    backgroundColor?: string;
     demoLink?: string;
     learnMoreLink?: string;
 }
 
-const CardContainer = styled.div<{ $backgroundImage?: string }>`
+const CardContainer = styled.div<{ $backgroundImage?: string; $backgroundSize?: string; $backgroundColor?: string }>`
     position: relative;
-    background: ${props => props.$backgroundImage ? `url(${props.$backgroundImage})` : 'var(--white)'};
-    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    background-color: ${props => props.$backgroundColor || 'var(--white)'};
+    background-image: ${props => props.$backgroundImage ? `url(${props.$backgroundImage})` : 'none'};
+    background-size: ${props => props.$backgroundSize || 'cover'};
+    background-repeat: no-repeat;
     background-position: center;
     border: 3px solid var(--primary-purple);
     border-radius: 16px;
@@ -60,11 +66,11 @@ const CardContainer = styled.div<{ $backgroundImage?: string }>`
 const ContentSection = styled.div`
     position: relative;
     z-index: 2;
-    height: 100%;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    padding-bottom: 24px;
+    justify-content: flex-end;
+    padding-bottom: 0;
     transition: transform 0.3s ease;
 
     ${CardContainer}:hover & {
@@ -77,8 +83,7 @@ const ContentSection = styled.div`
 `;
 
 const TextContent = styled.div`
-    margin-top: auto;
-    margin-bottom: 20px;
+    margin-bottom: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -201,6 +206,8 @@ export default function ProjectCard({
     title,
     description,
     backgroundImage,
+    backgroundSize,
+    backgroundColor,
     demoLink,
     learnMoreLink
 }: ProjectCardProps) {
@@ -208,7 +215,11 @@ export default function ProjectCard({
     const hasButtons = !!(demoLink || learnMoreLink);
 
     return (
-        <CardContainer $backgroundImage={backgroundImage}>
+        <CardContainer 
+            $backgroundImage={backgroundImage} 
+            $backgroundSize={backgroundSize}
+            $backgroundColor={backgroundColor}
+        >
             <ContentSection>
                 <TextContent>
                     <Title $hasBackground={hasBackground}>{title}</Title>
