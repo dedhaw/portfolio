@@ -12,6 +12,7 @@ import './App.css';
 import WorkExperience from './views/WorkExperience';
 import Projects from './views/Projects';
 import VoiceAgent from './views/VoiceAgent';
+import Navable from './views/Navable';
 import { useEffect } from 'react';
 
 export interface NavItem {
@@ -53,6 +54,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/work-experience' element={<WorkExperience />} />
         <Route path='/projects' element={<Projects />} />
+        <Route path='/projects/navable' element={<Navable />} />
         <Route path='/voicechat' element={<VoiceAgent />} />
         <Route path='/*' element={<PageNotFound />} />
       </Routes>

@@ -98,6 +98,7 @@ export default function Projects () {
                         backgroundImage="/navable.png"
                         backgroundSize="70%"
                         backgroundColor="#843ce1"
+                        learnMoreLink="/projects/navable"
                     />
                 </ProjectsGrid>
             </ProjectsSection>
